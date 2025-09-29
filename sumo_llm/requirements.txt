@@ -1,0 +1,19 @@
+# 基础依赖
+streamlit>=1.24.0
+numpy>=1.21.0
+pandas>=1.3.0
+
+# SUMO相关
+# SUMO需要单独安装，这里是Python接口
+traci>=1.17.0
+
+# 可视化相关
+plotly>=5.13.0
+plotly-express>=0.4.1
+
+# AI模型相关
+dashscope>=1.13.0  # 智谱AI的Python SDK
+
+# 工具库
+python-dateutil>=2.8.2
+pytz>=2023.3

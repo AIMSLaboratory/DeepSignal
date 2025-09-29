@@ -1,0 +1,16 @@
+<configuration>
+
+    <gui-settings-file value="gui-settings.cfg"/>
+
+    <input>
+        <net-file value="ChengduCity.net.xml"/>
+        <route-files value="morning_rush_hour.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="1e9"/>
+    </time>
+
+	
+</configuration>

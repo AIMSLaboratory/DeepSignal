@@ -1,0 +1,303 @@
+{
+    "J54": {
+      "junction_name": "Junction_J54",
+      "location": {
+        "x": 15148.2,
+        "y": 19900.97
+      },
+      "incoming_lanes": {
+        "南北方向直行与右转": [
+          {
+            "lane_id": "136004889.148_0",
+            "lane_index": 0,
+            "edge_id": "136004889.148",
+            "direction": "S",
+            "length": 70.46,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.148_1",
+            "lane_index": 1,
+            "edge_id": "136004889.148",
+            "direction": "S",
+            "length": 70.46,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.148_2",
+            "lane_index": 2,
+            "edge_id": "136004889.148",
+            "direction": "S",
+            "length": 70.46,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.148_3",
+            "lane_index": 3,
+            "edge_id": "136004889.148",
+            "direction": "S",
+            "length": 70.46,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889.221.207_0",
+            "lane_index": 4,
+            "edge_id": "-136004889.221.207",
+            "direction": "N",
+            "length": 143.31,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889.221.207_1",
+            "lane_index": 5,
+            "edge_id": "-136004889.221.207",
+            "direction": "N",
+            "length": 143.31,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889.221.207_2",
+            "lane_index": 6,
+            "edge_id": "-136004889.221.207",
+            "direction": "N",
+            "length": 143.31,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889.221.207_3",
+            "lane_index": 7,
+            "edge_id": "-136004889.221.207",
+            "direction": "N",
+            "length": 143.31,
+            "speed_limit": 27.78
+          }
+        ],
+        "南北方向左转": [
+          {
+            "lane_id": "-136004889.221.207_4",
+            "lane_index": 4,
+            "edge_id": "-136004889.221.207",
+            "direction": "N",
+            "length": 143.31,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.148_4",
+            "lane_index": 4,
+            "edge_id": "136004889.148",
+            "direction": "S",
+            "length": 70.46,
+            "speed_limit": 27.78
+          }
+        ],
+        "东西直行": [
+          {
+            "lane_id": "37132266#4_0",
+            "lane_index": 0,
+            "edge_id": "37132266#4",
+            "direction": "E",
+            "length": 392.32,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "37132266#4_1",
+            "lane_index": 1,
+            "edge_id": "37132266#4",
+            "direction": "E",
+            "length": 392.32,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-184446506#4_0",
+            "lane_index": 0,
+            "edge_id": "-184446506#4",
+            "direction": "W",
+            "length": 225.13,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-184446506#4_1",
+            "lane_index": 1,
+            "edge_id": "-184446506#4",
+            "direction": "W",
+            "length": 225.13,
+            "speed_limit": 27.78
+          }
+        ],
+        "东西方向左转": [
+          {
+            "lane_id": "-184446506#4_2",
+            "lane_index": 2,
+            "edge_id": "-184446506#4",
+            "direction": "W",
+            "length": 225.13,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "37132266#4_2",
+            "lane_index": 1,
+            "edge_id": "37132266#4",
+            "direction": "W",
+            "length": 225.13,
+            "speed_limit": 27.78
+          }
+        ]
+      },
+      "outgoing_lanes": {
+        "南北方向直行与右转": [
+          {
+            "lane_id": "-136004889_0",
+            "lane_index": 0,
+            "edge_id": "-136004889",
+            "direction": "N",
+            "length": 67.26,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889_1",
+            "lane_index": 1,
+            "edge_id": "-136004889",
+            "direction": "N",
+            "length": 67.26,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889_2",
+            "lane_index": 2,
+            "edge_id": "-136004889",
+            "direction": "N",
+            "length": 67.26,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889_3",
+            "lane_index": 3,
+            "edge_id": "-136004889",
+            "direction": "N",
+            "length": 67.26,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.221_0",
+            "lane_index": 0,
+            "edge_id": "136004889.221",
+            "direction": "S",
+            "length": 128.52,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.221_1",
+            "lane_index": 1,
+            "edge_id": "136004889.221",
+            "direction": "S",
+            "length": 128.52,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.221_2",
+            "lane_index": 2,
+            "edge_id": "136004889.221",
+            "direction": "S",
+            "length": 128.52,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.221_3",
+            "lane_index": 3,
+            "edge_id": "136004889.221",
+            "direction": "S",
+            "length": 128.52,
+            "speed_limit": 27.78
+          }
+        ],
+        "南北方向左转": [
+          {
+            "lane_id": "184446506#0_1",
+            "lane_index": 1,
+            "edge_id": "184446506#0",
+            "direction": "E",
+            "length": 225.08,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-37132266#4_1",
+            "lane_index": 1,
+            "edge_id": "-37132266#4",
+            "direction": "W",
+            "length": 392.19,
+            "speed_limit": 27.78
+          }
+        ],
+        "东西直行": [
+          {
+            "lane_id": "-37132266#4_0",
+            "lane_index": 0,
+            "edge_id": "-37132266#4",
+            "direction": "W",
+            "length": 392.19,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-37132266#4_1",
+            "lane_index": 1,
+            "edge_id": "-37132266#4",
+            "direction": "W",
+            "length": 392.19,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "184446506#0_0",
+            "lane_index": 0,
+            "edge_id": "184446506#0",
+            "direction": "E",
+            "length": 225.08,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "184446506#0_1",
+            "lane_index": 1,
+            "edge_id": "184446506#0",
+            "direction": "E",
+            "length": 225.08,
+            "speed_limit": 27.78
+          }
+        ],
+        "东西方向左转": [
+          {
+            "lane_id": "136004889.221_0",
+            "lane_index": 0,
+            "edge_id": "136004889.221",
+            "direction": "S",
+            "length": 128.52,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "136004889.221_1",
+            "lane_index": 1,
+            "edge_id": "136004889.221",
+            "direction": "S",
+            "length": 128.52,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889_0",
+            "lane_index": 0,
+            "edge_id": "-136004889",
+            "direction": "N",
+            "length": 67.26,
+            "speed_limit": 27.78
+          },
+          {
+            "lane_id": "-136004889_1",
+            "lane_index": 1,
+            "edge_id": "-136004889",
+            "direction": "N",
+            "length": 67.26,
+            "speed_limit": 27.78
+          }
+        ]
+      },
+      "type": "traffic_light"
+    }
+    
+  }
