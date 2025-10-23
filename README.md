@@ -51,6 +51,7 @@
 2. 设置环境变量：
    - Windows: 将SUMO安装目录添加到PATH
    - Linux/Mac: export SUMO_HOME="/usr/local/share/sumo"
+   - Mac: export SUMO_HOME="/Users/leida/Cline/sumo/bin"
 
 ### Python依赖
 
@@ -73,11 +74,22 @@ uv sync # 安装pyproject.toml中的所有依赖
 ### 运行程序
 
 ```
+# 最先手动启动XQuartz (sumo server)
+
 # 先启动mcp服务和sumo仿真
+source .venv/bin/activate
+export SUMO_HOME="/Users/leida/Cline/sumo/bin"
 uv run python api_server/mcp_server/mcp_server.py
 
 #再启动后端服务
+source .venv/bin/activate
+export SUMO_HOME="/Users/leida/Cline/sumo/bin"
 uv run main.py
+
+# Web前端
+source .venv/bin/activate
+export SUMO_HOME="/Users/leida/Cline/sumo/bin"
+streamlit run sumo_llm/app.py
 
 # 环境变量
 ANTHROPIC_API_KEY=sk-

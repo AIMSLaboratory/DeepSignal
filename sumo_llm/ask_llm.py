@@ -1,8 +1,8 @@
 import os
 import time
-import dashscope
-from dashscope import Generation
-from sumo_simulator import SUMOSimulator
+# import dashscope
+# from dashscope import Generation
+from .sumo_simulator import SUMOSimulator
 from threading import Thread, Event
 import queue
 

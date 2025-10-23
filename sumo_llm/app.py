@@ -3,7 +3,10 @@ import os
 import time
 from threading import Thread, Event
 import queue
-from sumo_llm.sumo_simulator import SUMOSimulator
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from sumo_simulator import SUMOSimulator
 import dashscope
 from dashscope import Generation
 import json
@@ -61,7 +64,7 @@ class SimulationManager:
         self.stop_event = Event()
         self.signalized_junctions = []
         
-    def start_simulation(self, config_file = os.path.join(os.getcwd(), "sumo_llm\osm.sumocfg"), junctions_file = os.path.join(os.getcwd(), "sumo_llm\J54_data.json")):
+    def start_simulation(self, config_file = os.path.join(os.getcwd(), "sumo_llm/osm.sumocfg"), junctions_file = os.path.join(os.getcwd(), "sumo_llm/J54_data.json")):
         
         if self.simulator is None:
             self.simulator = SUMOSimulator(config_file, junctions_file, gui=True)
@@ -250,8 +253,8 @@ def main():
         if not st.session_state.simulation_running:
             if st.button("启动仿真"):
                 current_dir = os.getcwd()
-                config_file = os.path.join(current_dir, "osm.sumocfg")
-                junctions_file = os.path.join(current_dir, "J54_data.json")
+                config_file = os.path.join(current_dir, "sumo_llm", "osm.sumocfg")
+                junctions_file = os.path.join(current_dir, "sumo_llm", "J54_data.json")
                 
                 if st.session_state.sim_manager.start_simulation(config_file, junctions_file):
                     st.session_state.simulation_running = True

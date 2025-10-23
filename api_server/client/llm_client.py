@@ -62,7 +62,7 @@ class LLMClient:
         elif self.model_type == model_type:
             self.client = OpenAI(
                 api_key="lm-studio",
-                base_url="http://10.147.18.148:1234/v1"
+                base_url="http://127.0.0.1:1234/v1"
             )
         else:
             raise ValueError(f"Unsupported model type: {self.model_type}")

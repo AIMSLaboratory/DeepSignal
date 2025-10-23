@@ -17,7 +17,7 @@ else:
     sys.exit("请设置SUMO_HOME环境变量")
 
 class SUMOSimulator:
-    def __init__(self, config_file=os.path.join(os.getcwd(), "sumo_llm\osm.sumocfg"), junctions_file = os.path.join(os.getcwd(), "sumo_llm\J54_data.json"), gui=True, history_file=None):
+    def __init__(self, config_file=os.path.join(os.getcwd(), "sumo_llm/osm.sumocfg"), junctions_file = os.path.join(os.getcwd(), "sumo_llm/J54_data.json"), gui=True, history_file=None):
         """
         初始化SUMO仿真器
         config_file: SUMO配置文件路径 (.sumocfg)
@@ -177,7 +177,11 @@ class SUMOSimulator:
                     pass
                 
                 # 设置SUMO命令
-                sumo_binary = "sumo-gui" if self.gui else "sumo"
+                sumo_home = os.environ.get('SUMO_HOME', '')
+                if sumo_home:
+                    sumo_binary = os.path.join(sumo_home, "sumo-gui" if self.gui else "sumo")
+                else:
+                    sumo_binary = "sumo-gui" if self.gui else "sumo"
                 sumo_cmd = [
                     sumo_binary,
                     "-c", self.config_file,

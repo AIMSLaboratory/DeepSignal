@@ -241,68 +241,68 @@ def get_phase_queues_from_sumo(tl_id: str) -> Dict[str, Dict[str, int]]:
     
     return phase_queues
 
-# @mcp.tool()
-# def max_pressure_optimize(phase_queues: Dict[str, Dict[str, int]],
-#                         current_phase: Optional[int] = None,
-#                         current_duration: float = 0) -> Dict[str, Any]:
-#     """使用Max Pressure算法优化信号配时
-    
-#     Args:
-#         phase_queues: 相位队列长度字典，格式为：
-#             {
-#                 "N_STRAIGHT": {"in": 10, "out": 5},
-#                 "S_STRAIGHT": {"in": 8, "out": 3},
-#                 ...
-#             }
-#         current_phase: 当前相位ID
-#         current_duration: 当前相位持续时间(秒)
-    
-#     Returns:
-#         优化结果字典
-#     """
-#     optimal_phase = max_pressure.update(
-#         phase_queues,
-#         current_phase,
-#         current_duration
-#     )
-    
-#     # 记录使用的算法
-#     performance_evaluator.set_current_algorithm("max_pressure")
-    
-#     return {
-#         "optimal_phase": optimal_phase,
-#         "algorithm": "max_pressure",
-#         "status": "success"
-#     }
-
 @mcp.tool()
-def prediction_optimize(phase_queues: Dict[str, Dict[str, int]],
-                      current_phase: Optional[int] = None,
-                      current_duration: float = 0) -> Dict[str, Any]:
-    """使用预测优化算法优化信号配时
+def max_pressure_optimize(phase_queues: Dict[str, Dict[str, int]],
+                        current_phase: Optional[int] = None,
+                        current_duration: float = 0) -> Dict[str, Any]:
+    """使用Max Pressure算法优化信号配时
     
     Args:
-        phase_queues: 相位队列长度字典
+        phase_queues: 相位队列长度字典，格式为：
+            {
+                "N_STRAIGHT": {"in": 10, "out": 5},
+                "S_STRAIGHT": {"in": 8, "out": 3},
+                ...
+            }
         current_phase: 当前相位ID
         current_duration: 当前相位持续时间(秒)
     
     Returns:
         优化结果字典
     """
-    optimal_phase = prediction_optimizer.update(
+    optimal_phase = max_pressure.update(
         phase_queues,
         current_phase,
         current_duration
     )
     
     # 记录使用的算法
-    performance_evaluator.set_current_algorithm("prediction_optimizer")
+    performance_evaluator.set_current_algorithm("max_pressure")
     
     return {
         "optimal_phase": optimal_phase,
-        "algorithm": "prediction_optimizer",
+        "algorithm": "max_pressure",
         "status": "success"
     }
+
+# @mcp.tool()
+# def prediction_optimize(phase_queues: Dict[str, Dict[str, int]],
+#                       current_phase: Optional[int] = None,
+#                       current_duration: float = 0) -> Dict[str, Any]:
+#     """使用预测优化算法优化信号配时
+    
+#     Args:
+#         phase_queues: 相位队列长度字典
+#         current_phase: 当前相位ID
+#         current_duration: 当前相位持续时间(秒)
+    
+#     Returns:
+#         优化结果字典
+#     """
+#     optimal_phase = prediction_optimizer.update(
+#         phase_queues,
+#         current_phase,
+#         current_duration
+#     )
+    
+#     # 记录使用的算法
+#     performance_evaluator.set_current_algorithm("prediction_optimizer")
+    
+#     return {
+#         "optimal_phase": optimal_phase,
+#         "algorithm": "prediction_optimizer",
+#         "status": "success"
+#     }
 
 # @mcp.tool()
 # def llm_optimize(phase_queues: Dict[str, Dict[str, int]],
