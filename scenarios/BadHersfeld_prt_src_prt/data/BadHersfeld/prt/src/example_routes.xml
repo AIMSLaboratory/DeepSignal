@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="4" depart="5.00" arrival="157.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Station_arrival" busStop="Station_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="22" depart="23.00" arrival="323.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Pnord_arrival" busStop="Pnord_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="55" depart="56.00" arrival="320.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Pnord_arrival" busStop="Pnord_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="84" depart="85.00" arrival="382.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Pnord_arrival" busStop="Pnord_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="100" depart="101.00" arrival="352.00">
+        <walk edges="Station" busStop="Station_stop" speed="1.39"/>
+        <ride from="Station" to="Hotel_arrival" busStop="Hotel_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="103" depart="104.00" arrival="214.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Station_arrival" busStop="Station_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="131" depart="132.00" arrival="375.00">
+        <walk edges="Hospital" busStop="Hospital_stop" speed="1.39"/>
+        <ride from="Hospital" to="Pnord_arrival" busStop="Pnord_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="132" depart="133.00" arrival="375.00">
+        <walk edges="Hospital" busStop="Hospital_stop" speed="1.39"/>
+        <ride from="Hospital" to="Hotel_arrival" busStop="Hotel_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="138" depart="139.00" arrival="373.00">
+        <walk edges="Hospital" busStop="Hospital_stop" speed="1.39"/>
+        <ride from="Hospital" to="Hotel_arrival" busStop="Hotel_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="160" depart="161.00" arrival="338.00">
+        <walk edges="Station" busStop="Station_stop" speed="1.39"/>
+        <ride from="Station" to="Hospital_arrival" busStop="Hospital_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="167" depart="168.00" arrival="430.00">
+        <walk edges="Station" busStop="Station_stop" speed="1.39"/>
+        <ride from="Station" to="Pnord_arrival" busStop="Pnord_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="176" depart="177.00" arrival="278.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Station_arrival" busStop="Station_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="178" depart="179.00" arrival="281.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Station_arrival" busStop="Station_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="179" depart="180.00" arrival="331.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Station_arrival" busStop="Station_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="201" depart="202.00" arrival="443.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Hospital_arrival" busStop="Hospital_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="236" depart="237.00" arrival="354.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Station_arrival" busStop="Station_arrival_stop" lines="taxi"/>
+    </person>
+
+    <person id="250" depart="251.00" arrival="437.00">
+        <walk edges="Hotel" busStop="Hotel_stop" speed="1.39"/>
+        <ride from="Hotel" to="Station_arrival" busStop="Station_arrival_stop" lines="taxi"/>
+    </person>
+</routes>

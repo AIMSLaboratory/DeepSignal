@@ -1,0 +1,26 @@
+<routes>
+    <vType
+       vClass="taxi"
+       emissionClass="HBEFA3/zero"
+       guiShape="evehicle"
+       id="dromos"
+       length="2.5"
+       width="1"
+       color="0,1,0"
+       carFollowModel="Krauss"
+       maxSpeed="13.89"
+       minGap="1"
+       emergencyDecel="3.5"
+       tau="1"
+       sigma="0"
+       decel="3.5"
+       accel="2.5">
+           <param key="has.taxi.device" value="true"/>
+           <param key="device.taxi.pickUpDuration" value="20"/>
+           <param key="device.taxi.dropOffDuration" value="10"/>
+    </vType>
+
+    <flow id="prt" type="dromos" begin="0.00" number="40" period="3" departPos="0" departSpeed="avg" line="taxi" color="white">
+        <route edges="Depot"/>
+    </flow>
+</routes>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-23 14:37:59 by Eclipse SUMO netedit Version v1_17_0+0224-bd9d1f7a5d5
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="pt_bus" vClass="bus"/>
+    <vType id="pt_tram" vClass="tram"/>
+    <vType id="delivery" vClass="delivery"/>
+    <vType id="bicycle" vClass="bicycle"/>
+</additional>

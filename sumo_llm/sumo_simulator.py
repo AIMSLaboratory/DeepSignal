@@ -16,8 +16,10 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("请设置SUMO_HOME环境变量")
 
+_UNSET = object()
+
 class SUMOSimulator:
-    def __init__(self, config_file=os.path.join(os.getcwd(), "sumo_llm/osm.sumocfg"), junctions_file = os.path.join(os.getcwd(), "sumo_llm/J54_data.json"), gui=True, history_file=None):
+    def __init__(self, config_file=os.path.join(os.getcwd(), "sumo_llm/osm.sumocfg"), junctions_file=os.path.join(os.getcwd(), "sumo_llm/J54_data.json"), gui=True, history_file=None):
         """
         初始化SUMO仿真器
         config_file: SUMO配置文件路径 (.sumocfg)
@@ -26,7 +28,7 @@ class SUMOSimulator:
         history_file: 历史数据存储文件路径
         """
         self.config_file = os.path.abspath(config_file)
-        self.junctions_file = os.path.abspath(junctions_file)
+        self.junctions_file = os.path.abspath(junctions_file) if junctions_file else None
         self.gui = gui
         self.simulation_started = False
         self.warmup_done = False
@@ -47,15 +49,18 @@ class SUMOSimulator:
         # 验证文件存在
         if not os.path.exists(self.config_file):
             raise FileNotFoundError(f"SUMO配置文件未找到: {self.config_file}")
-        if not os.path.exists(self.junctions_file):
+        if self.junctions_file and (not os.path.exists(self.junctions_file)):
             raise FileNotFoundError(f"路口数据文件未找到: {self.junctions_file}")
         
         # 加载路口配置
-        try:
-            with open(self.junctions_file, 'r', encoding='utf-8') as f:
-                self.junctions_data = json.load(f)
-        except Exception as e:
-            print(f"Error loading junctions data: {str(e)}")
+        if self.junctions_file:
+            try:
+                with open(self.junctions_file, 'r', encoding='utf-8') as f:
+                    self.junctions_data = json.load(f)
+            except Exception as e:
+                print(f"Error loading junctions data: {str(e)}")
+                self.junctions_data = {}
+        else:
             self.junctions_data = {}
 
     def load_historical_data(self):
@@ -1021,12 +1026,12 @@ _simulation_manager = None
 _simulation_thread = None
 _stop_event = Event()
 
-def initialize_sumo(config_file=None, junctions_file=None, gui=True, history_file=None):
+def initialize_sumo(config_file=None, junctions_file=_UNSET, gui=True, history_file=None):
     """
     初始化SUMO模拟器并在后台启动仿真
     Args:
         config_file: SUMO配置文件路径，如果为None则使用默认路径
-        junctions_file: 路口数据文件路径，如果为None则使用默认路径
+        junctions_file: 路口数据文件路径；默认使用内置J54_data.json；传入None表示禁用路口数据文件
         gui: 是否使用图形界面
         history_file: 历史数据存储文件路径
     Returns:
@@ -1040,7 +1045,7 @@ def initialize_sumo(config_file=None, junctions_file=None, gui=True, history_fil
     
     if config_file is None:
         config_file = os.path.join(os.getcwd(), "sumo_llm/osm.sumocfg")
-    if junctions_file is None:
+    if junctions_file is _UNSET:
         junctions_file = os.path.join(os.getcwd(), "sumo_llm/J54_data.json")
     if history_file is None:
         history_file = os.path.join(os.path.dirname(config_file), "traffic_history.json")
@@ -1053,15 +1058,16 @@ def initialize_sumo(config_file=None, junctions_file=None, gui=True, history_fil
         
         # 创建并启动仿真线程
         def run_simulation():
+            default_tl_id = os.getenv("SUMO_TL_ID", "J54")
             while not _stop_event.is_set():
                 if not _simulation_manager.step():
                     break
                     
                 # 每10秒收集一次数据
                 if _simulation_manager.get_simulation_time() % 10 == 0:
-                    _simulation_manager.collect_traffic_data("J54")
-                    metrics = _simulation_manager.get_intersection_metrics("J54",time_window=3600)
-                    _simulation_manager.save_metrics_to_csv("J54", metrics,csv_file="intersection_metrics.csv")
+                    _simulation_manager.collect_traffic_data(default_tl_id)
+                    metrics = _simulation_manager.get_intersection_metrics(default_tl_id, time_window=3600)
+                    _simulation_manager.save_metrics_to_csv(default_tl_id, metrics, csv_file="intersection_metrics.csv")
                     
                 time.sleep(1)
         

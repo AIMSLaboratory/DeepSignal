@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="data/bologna/acosta_persontrips/acosta_peds.net.xml" />
+        <route-files value="data/bologna/acosta_persontrips/acosta.rou.xml,data/bologna/acosta_persontrips/persontrips.rou.xml,data/bologna/acosta_persontrips/acosta_busses.rou.xml" />
+        <additional-files value="data/bologna/acosta_persontrips/acosta_vtypes.add.xml,data/bologna/acosta_persontrips/acosta_bus_stops.add.xml,data/bologna/acosta_persontrips/acosta_tls2.add.xml" />
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml" />
+        <stop-output value="stops.xml" />
+    </output>
+
+    <processing>
+        <pedestrian.striping.reserve-oncoming value="0.34" />
+    </processing>
+
+    <report>
+        <log value="sumo_log.txt" />
+        <no-step-log value="true" />
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="data/bologna/acosta_persontrips/settings.gui.xml" />
+    </gui_only>
+
+</sumoConfiguration>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+  <input>
+    <net-file value="data/cologne8/cologne8.net.xml" />
+	<route-files value="data/cologne8/cologne8.rou.xml" />
+  </input>
+  <time>
+    <begin value="25200" />
+    <end value="28800" />
+  </time>
+</configuration>

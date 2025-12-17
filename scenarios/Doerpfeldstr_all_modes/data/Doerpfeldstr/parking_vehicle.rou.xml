@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-10 11:27:42 by Eclipse SUMO netedit Version v1_17_0+0871-1d9458f9fa0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_0" depart="14:00:00">
+        <route edges="20553068#3 -178028204#9 -178028204#9.72 -140964924"/> <!--Post-->
+        <stop lane="-178028204#9_1" startPos="27.76" endPos="37.76" duration="250.00"/>
+    </vehicle>
+    <vehicle id="v_1" depart="14:05:00"> <!--Post-->
+        <route edges="20553068#3 -178028204#9 -178028204#9.72 -140964924"/>
+        <stop lane="-178028204#9_1" startPos="25.40" endPos="35.40" duration="60.00"/>
+    </vehicle>
+	<vehicle id="v_2" depart="14:10:00"> <!--Post-->
+        <route edges="20553068#3 -178028204#9 -178028204#9.72 -140964924"/> <!--Post-->
+        <stop lane="-178028204#9_1" startPos="27.76" endPos="37.76" duration="250.00"/>
+    </vehicle>
+	
+    <vehicle id="v_3" depart="14:10:00"> <!--Asia-->
+        <route edges="-149611534#0 -178028203#2 -178028203#1 -1072269112#0 -1072269113 140964907#1"/>
+        <stop lane="-1072269112#0_1" startPos="52.01" endPos="62.01" duration="240.00"/>
+    </vehicle>
+	<vehicle id="v_4" depart="14:15:00"> <!--Post-->
+        <route edges="20553068#3 -178028204#9 -178028204#9.72 -140964924"/> <!--Post-->
+        <stop lane="-178028204#9_1" startPos="27.76" endPos="37.76" duration="300.00"/>
+    </vehicle>
+	<vehicle id="v_5" depart="14:15:00"> <!--Fotoladen-->
+        <route edges="-23913525#0 178028204#9 178028204#9.13 166142947#1 -187123053#6"/>
+        <stop lane="166142947#1_1" startPos="34.04" endPos="44.04" duration="60.00"/>
+    </vehicle>
+	<vehicle id="v_6" depart="14:15:00"> <!--Bäcker-->
+        <route edges="11389403#3 147053824#1 147053824#2 147053824#3 -140964927#4"/>
+        <stop lane="147053824#2_1" startPos="26.04" endPos="36.04" duration="120.00"/>
+    </vehicle>
+	<vehicle id="v_7" depart="14:25:00"> <!--Asia-->
+        <route edges="-149611534#0 -178028203#2 -178028203#1 -1072269112#0 -1072269113 140964907#1"/>
+        <stop lane="-1072269112#0_1" startPos="52.01" endPos="62.01" duration="300.00"/>
+    </vehicle>
+	<vehicle id="v_8" depart="14:28:00"> <!--Post-->
+        <route edges="20553068#3 -178028204#9 -178028204#9.72 -140964924"/> <!--Post-->
+        <stop lane="-178028204#9_1" startPos="27.76" endPos="37.76" duration="240.00"/>
+    </vehicle>
+	
+    <vehicle id="v_9" depart="14:30:00"> <!--Asisa-->
+        <route edges="-149611534#0 -178028203#2 -178028203#1 -1072269112#0 -1072269113 140964907#1"/>
+        <stop lane="-1072269112#0_1" startPos="31.27" endPos="41.27" duration="120.00"/>
+    </vehicle>
+	<vehicle id="v_10" depart="14:33:00"> <!--Post-->
+        <route edges="20553068#3 -178028204#9 -178028204#9.72 -140964924"/> <!--Post-->
+        <stop lane="-178028204#9_1" startPos="27.76" endPos="37.76" duration="240.00"/>
+    </vehicle>
+	<vehicle id="v_11" depart="14:39:00"> <!--Asisa-->
+        <route edges="-149611534#0 -178028203#2 -178028203#1 -1072269112#0 -1072269113 140964907#1"/>
+        <stop lane="-1072269112#0_1" startPos="31.27" endPos="41.27" duration="120.00"/>
+    </vehicle>
+	<vehicle id="v_12" depart="14:40:00"> <!--Post-->
+        <route edges="20553068#3 -178028204#9 -178028204#9.72 -140964924"/> <!--Post-->
+        <stop lane="-178028204#9_1" startPos="27.76" endPos="37.76" duration="120.00"/>
+    </vehicle>
+    <vehicle id="v_13" depart="14:45:00"> <!--Bäcker-->
+        <route edges="-11391856#2 147053824#1 147053824#2 147053824#3 -140964927#4"/>
+        <stop lane="147053824#2_1" startPos="26.04" endPos="36.04" duration="120.00"/>
+    </vehicle>
+	<vehicle id="v_14" depart="14:49:00"> <!--Asisa-->
+        <route edges="-149611534#0 -178028203#2 -178028203#1 -1072269112#0 -1072269113 140964907#1"/>
+        <stop lane="-1072269112#0_1" startPos="31.27" endPos="41.27" duration="120.00"/>
+    </vehicle>
+    <vehicle id="v_15" depart="14:50:00"> <!--Fotoladen-->
+        <route edges="-23913525#0 178028204#9 178028204#9.13 166142947#1 -187123053#6"/>
+        <stop lane="166142947#1_1" startPos="34.04" endPos="44.04" duration="60.00"/>
+    </vehicle>
+</routes>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+  <input>
+    <net-file value="data/ingolstadt7/ingolstadt7.net.xml" />
+	<route-files value="data/ingolstadt7/ingolstadt7.rou.xml" />
+  </input>
+  <time>
+    <begin value="57600" />
+    <end value="61200" />
+  </time>
+</configuration>

@@ -9,8 +9,11 @@
 import numpy as np
 from typing import Dict, List, Tuple, Optional
 from datetime import datetime, timedelta
-from sumo_llm.sumo_simulator import get_simulator
 from collections import deque, defaultdict
+
+def _get_simulator():
+    from sumo_llm.sumo_simulator import get_simulator as __get_simulator
+    return __get_simulator()
 
 class PredictionOptimizer:
     def __init__(self, phases: Dict[int, List[Tuple[int, int]]], 
@@ -47,7 +50,7 @@ class PredictionOptimizer:
         返回:
             处理后的历史数据字典
         """
-        simulator = get_simulator()
+        simulator = _get_simulator()
         if simulator is None:
             return {
                 'timestamps': [],

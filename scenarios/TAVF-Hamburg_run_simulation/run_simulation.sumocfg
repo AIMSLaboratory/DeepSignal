@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+
+    <input>
+        <net-file value="data/TAVF-Hamburg/network.net.xml.gz" />
+        <additional-files value="data/TAVF-Hamburg/busStops.add.xml" />
+        <route-files value="data/TAVF-Hamburg/bus_route.rou.xml,data/TAVF-Hamburg/vType.xml,data/TAVF-Hamburg/PKW_automatic.rou.xml.gz,data/TAVF-Hamburg/LKW_automatic.rou.xml" />
+    </input>
+
+    <time>
+        <begin value="000" />
+        <end value="1200" />
+    </time>
+
+    <report>
+        <verbose value="true" />
+        <duration-log.statistics value="true" />
+        <no-step-log value="true" />
+        <no-warnings value="true" />
+        <log value="simulation.log.txt" />
+    </report>
+
+    <seed value="121294" />
+
+</configuration>

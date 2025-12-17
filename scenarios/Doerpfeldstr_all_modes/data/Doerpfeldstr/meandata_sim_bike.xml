@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-17T13:56:23.235366+08:00 by Eclipse SUMO GUI v1_24_0+1045-d7bbd3d1d18
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/net.net.xml.gz"/>
+        <route-files value="/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/samplertrips.rou.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/samplertrips_bike.rou.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/parking_heavy.rou.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/parking_vehicle.rou.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/pt_lines.rou.xml"/>
+        <additional-files value="/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/vtypes.add.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/additional_bike.add.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/additional.add.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/stops.add.xml,/Users/leida/Cline/mcp_sumo_fastapi_llm/scenarios/Doerpfeldstr_all_modes/data/Doerpfeldstr/tram_tls.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="50300"/>
+        <end value="54100"/>
+        <step-length value="1.0"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="100"/>
+        <time-to-teleport.bidi value="70"/>
+    </processing>
+
+    <report>
+        <no-warnings value="true"/>
+        <duration-log.statistics value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="52226"/>
+    </traci_server>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="50300.00" end="50653.00" id="sim_bike">
+        <edge id="178028204#9" sampledSeconds="7.81" traveltime="1.25" overlapTraveltime="1.56" density="3.63" laneDensity="1.81" occupancy="0.23" waitingTime="0.00" timeLoss="1.24" speed="4.93" speedRelative="0.59" departed="0" arrived="0" entered="5" left="5" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="-178028204#9" sampledSeconds="149.17" traveltime="13.18" overlapTraveltime="13.56" density="6.74" laneDensity="3.37" occupancy="0.52" waitingTime="5.00" timeLoss="22.65" speed="4.74" speedRelative="0.57" departed="0" arrived="0" entered="11" left="11" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="-147053824#2" sampledSeconds="51.71" traveltime="19.19" overlapTraveltime="19.49" density="1.46" laneDensity="0.73" occupancy="0.11" waitingTime="0.00" timeLoss="2.83" speed="5.24" speedRelative="0.38" departed="0" arrived="0" entered="3" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="147053824#2" sampledSeconds="111.18" traveltime="18.21" overlapTraveltime="18.53" density="3.13" laneDensity="1.57" occupancy="0.25" waitingTime="0.00" timeLoss="6.10" speed="5.51" speedRelative="0.40" departed="0" arrived="0" entered="6" left="6" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+</meandata>

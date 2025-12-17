@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="data/germany-motorways/gmw.net.xml.gz" />
+        <route-files value="data/germany-motorways/gmw.rou.xml.gz" />
+    </input>
+
+    <report>
+        <duration-log.statistics value="true" />
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true" />
+    </mesoscopic>
+
+</sumoConfiguration>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="data/bologna/acosta/acosta_buslanes.net.xml" />
+        <route-files value="data/bologna/acosta/acosta.rou.xml,data/bologna/acosta/acosta_busses.rou.xml" />
+        <additional-files value="data/bologna/acosta/acosta_vtypes.add.xml,data/bologna/acosta/acosta_detectors.add.xml,data/bologna/acosta/acosta_bus_stops.add.xml,data/bologna/acosta/acosta_tls.add.xml" />
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml" />
+    </output>
+
+    <report>
+        <log value="sumo_log.txt" />
+        <no-step-log value="true" />
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="data/bologna/acosta/settings.gui.xml" />
+    </gui_only>
+
+</sumoConfiguration>

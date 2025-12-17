@@ -2,3 +2,12 @@
 __pycache__/
 *.json
 *.csv
+models/
+dl_model.py
+.venv/
+.venv_hf/
+.env.backup
+*.txt
+hf/
+scripts/
+*.jsonl

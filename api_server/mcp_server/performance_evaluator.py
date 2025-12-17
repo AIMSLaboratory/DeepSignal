@@ -11,7 +11,10 @@ import time
 import json
 import numpy as np
 from typing import Dict, Any, Optional, List
-from sumo_llm.sumo_simulator import get_simulator
+
+def _get_simulator():
+    from sumo_llm.sumo_simulator import get_simulator as __get_simulator
+    return __get_simulator()
 
 class PerformanceEvaluator:
     def __init__(self, config_path=None):
@@ -98,7 +101,7 @@ class PerformanceEvaluator:
         Returns:
             收集的指标数据
         """
-        simulator = get_simulator()
+        simulator = _get_simulator()
         if simulator is None:
             return {"status": "error", "message": "SUMO模拟器未初始化"}
         

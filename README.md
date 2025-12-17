@@ -1,110 +1,158 @@
-# SUMO Traffic Simulation Analysis System
+# DeepSignal (SUMO + MCP) — Traffic Signal Control via LLM
 
-一个基于SUMO（Simulation of Urban MObility）的交通仿真分析系统，集成了AI分析和实时可视化功能，帮助交通工程师更好地理解和优化交通流量。
+[中文 README](README_zh.md)
 
-## 功能特点
+DeepSignal is our in-house fine-tuned large language model for **traffic-signal control**. The current release is **DeepSignal-4B**.
 
-- **实时交通仿真**：基于SUMO进行微观交通仿真，支持复杂路网模拟
-- **AI辅助分析**：集成Qwen大模型，提供专业的交通状态分析和优化建议
-- **实时数据可视化**：使用Plotly绘制直观的交通流量图表
-- **交互式界面**：基于Streamlit构建的用户友好界面
-- **多路口监控**：支持同时监控多个信号交叉口
+- **Model (Hugging Face)**: [`AIMS2025/DeepSignal`](https://huggingface.co/AIMS2025/DeepSignal)
 
-## 界面展示
 
-### SUMO仿真界面
+This repository also contains a SUMO-based simulation stack and an MCP server to run closed-loop interaction between the LLM and traffic simulations.
 
-<img src="images/SUMO仿真界面.png" alt="SUMO" width="50%" height="50%">
+## Key idea: Offline + Online training
 
-### AI分析界面
+We fine-tune DeepSignal using a two-stage learning pipeline:
 
-<img src="images/LLM分析.png" alt="SUMO" width="50%" height="50%">
+- **Offline learning (SFT)**: supervised fine-tuning on instruction-style data to learn traffic-state analysis and signal-control decision formatting.
+- **Online learning (RL with SUMO)**: reinforcement learning by interacting with SUMO simulations (closed-loop), using diverse scenarios under `scenarios/`.
 
-*功能一展示实时交通状态和AI分析结果*
+## Scenarios (training vs hold-out evaluation)
 
-### 统计可视化界面
+During online interaction, we use the SUMO scenarios under `scenarios/`. We also evaluate generalization on **hold-out scenarios** that are **NOT used in training**.
 
-<img src="images/统计可视化.png" alt="SUMO" width="50%" height="50%">
+| City/Region | Scenario directory | Config | Usage | Notes |
+|---|---|---|---|---|
+| Bad Hersfeld | `BadHersfeld_osm_duarouter` | `duarouter.sumocfg` | Train | OSM + duarouter |
+| Bad Hersfeld | `BadHersfeld_osm_osm` | `osm.sumocfg` | Train | OSM |
+| Bad Hersfeld | `BadHersfeld_prt_src_prt` | `prt.sumocfg` | Train | PRT |
+| Bologna | `bologna_acosta_persontrips_run` | `run.sumocfg` | Train | Acosta (persontrips) |
+| Bologna | `bologna_acosta_run` | `run.sumocfg` | Train | Acosta |
+| Bologna | `bologna_joined_run` | `run.sumocfg` | Train | Joined |
+| Bologna | `bologna_pasubio_run` | `run.sumocfg` | Train | Pasubio |
+| Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | Train | Multi-mode |
+| Doerpfeldstr | `Doerpfeldstr_output` | `output.sumocfg` | Train | Output config |
+| Doerpfeldstr | `Doerpfeldstr_output_flows` | `output_flows.sumocfg` | Train | Flows |
+| Doerpfeldstr | `Doerpfeldstr_output_neu` | `output_neu.sumocfg` | Train | Output (neu) |
+| Germany motorways | `germany-motorways_run` | `run.sumocfg` | Train | Motorways |
+| PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | Train | Brunswick OSM |
+| PORT tutorial | `port_tutorials_port_l_beck_port_tutorial` | `port_tutorial.sumocfg` | Train | Lübeck tutorial |
+| Wildau | `Wildau_flow1_Spaet` | `flow1_Spaet.sumocfg` | Train | Flow config |
+| Cologne | `cologne1` | `cologne1.sumocfg` | Eval (hold-out) | Not used in training |
+| Cologne | `cologne3` | `cologne3.sumocfg` | Eval (hold-out) | Not used in training |
+| Cologne | `cologne8` | `cologne8.sumocfg` | Eval (hold-out) | Not used in training |
+| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | Eval (hold-out) | Not used in training |
+| Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | Eval (hold-out) | Not used in training |
+| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | Eval (hold-out) | Not used in training |
+| Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (test-only) | Test-only; NOT used in fine-tuning/training |
 
-*功能二统计图表*
+## Evaluation metrics
 
-### AI大模型对话界面
-前端web页面项目：https://gitee.com/wen-qiang-leo/sumo-ai/tree/ai-web/
+We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics computed from the simulator:
 
-<img src="images/LLM-Chat.png" alt="SUMO" width="50%" height="50%">
+- **Avg Saturation** (`average_saturation`)
+- **Avg Queue Length** (`average_queue_length`)
+- **Max Saturation** (`max_saturation`)
+- **Max Queue Length** (`max_queue_length`)
+- **Congestion Index (0–1)** (`congestion_index`)
+- **Congestion Level** (`congestion_level`) and its distribution (%)
 
-*功能三展示大模型对话*
 
-## 技术栈
+## Results (metrics comparison)
 
-- SUMO：交通仿真引擎
-- Python：主要开发语言
-- Streamlit：Web界面框架
-- Plotly：数据可视化
-- Qwen：AI分析模型
+### Performance Metrics Comparison by Model
 
-## 环境配置
+| Model | Avg Saturation | Avg Queue Length | Max Saturation | Max Queue Length | Avg Congestion Index |
+|---|---:|---:|---:|---:|---:|
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1663 | 5.8604 | 0.1663 | 5.8604 | 0.1625 |
+| DeepSignal-4B (Ours) | 0.1657 | 5.8301 | 0.1657 | 5.8301 | 0.1752 |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1538 | 5.7688 | 0.1538 | 5.7688 | 0.2086 |
+| Qwen3-4B-SFT | 0.1604 | 6.0021 | 0.1604 | 6.0021 | 0.2093 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.2152 | 8.2083 | 0.2152 | 8.2083 | 0.2522 |
+| Max Pressure | 0.2059 | 8.1034 | 0.2059 | 8.1034 | 0.2556 |
+| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2591 | 10.4292 | 0.2591 | 10.4292 | 0.3175 |
 
-### SUMO安装
 
-1. 从[SUMO官网](https://sumo.dlr.de/docs/Downloads.php)下载并安装SUMO
-2. 设置环境变量：
-   - Windows: 将SUMO安装目录添加到PATH
-   - Linux/Mac: export SUMO_HOME="/usr/local/share/sumo"
-   - Mac: export SUMO_HOME="/Users/leida/Cline/sumo/bin"
+### Congestion Level Distribution by Model (%)
 
-### Python依赖
+| Model | Light congestion | Smooth | Very smooth |
+|---|---:|---:|---:|
+| DeepSignal-4B (Ours) | 0.00 | 12.00 | 88.00 |
+| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 2.00 | 53.33 | 44.67 |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.00 | 21.00 | 79.00 |
+| Max Pressure | 0.00 | 36.44 | 63.56 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.00 | 10.00 | 90.00 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 2.33 | 32.00 | 65.67 |
+| Qwen3-4B-SFT | 0.00 | 23.33 | 76.67 |
+
+### Visualization
+
+![Metrics Comparison](images/metrics_comparison_bars.png)
+
+## Model files (GGUF) and local inference
+
+If you are looking for GGUF files for local inference (`llama.cpp` / LM Studio), check the model card in Hugging Face and the packaging notes under `hf/`.
+
+Example (llama.cpp):
 
 ```bash
-#克隆项目
-git clone https://gitee.com/wen-qiang-leo/mcp_sumo_fastapi_llm.git
-cd mcp_sumo_fastapi_llm
-# 创建并激活虚拟环境
+llama-cli -m DeepSignal-4B_V1.F16.gguf -p "Summarize the traffic state and suggest a signal timing adjustment."
+```
+
+## Environment setup
+
+### SUMO installation
+
+1. Install SUMO from the official website: <https://sumo.dlr.de/docs/Downloads.php>
+2. Set `SUMO_HOME` (examples):
+   - Linux/Mac: `export SUMO_HOME="/usr/local/share/sumo"`
+   - Mac (example): `export SUMO_HOME="/Users/<you>/sumo/bin"`
+
+### Python dependencies (uv)
+
+```bash
 pip install uv
 uv venv
-
-source .venv/bin/activate  # Linux/Mac
-# 或
-.venv\Scripts\activate  # Windows
-
-# 安装依赖
-uv sync # 安装pyproject.toml中的所有依赖 
-```
-
-### 运行程序
-
-```
-# 最先手动启动XQuartz (sumo server)
-
-# 先启动mcp服务和sumo仿真
 source .venv/bin/activate
-export SUMO_HOME="/Users/leida/Cline/sumo/bin"
+uv sync
+```
+
+## Evaluation workflow (reproducible)
+
+The evaluation is performed in SUMO simulation and recorded as CSV metrics under `results/`.
+
+### Start the MCP server + SUMO simulation
+
+```bash
+source .venv/bin/activate
+export SUMO_HOME="/Users/<you>/sumo/bin"
 uv run python api_server/mcp_server/mcp_server.py
-
-#再启动后端服务
-source .venv/bin/activate
-export SUMO_HOME="/Users/leida/Cline/sumo/bin"
-uv run main.py
-
-# Web前端
-source .venv/bin/activate
-export SUMO_HOME="/Users/leida/Cline/sumo/bin"
-streamlit run sumo_llm/app.py
-
-# 环境变量
-ANTHROPIC_API_KEY=sk-
-DASHSCOPE_API_KEY=sk-
-MODEL_NAME=qwen-plus-0806
-
 ```
 
-## 未来改进计划
+### Inspect and select scenarios / traffic lights (TL IDs)
 
-1. **Agent功能扩展**
-   - 添加function calling功能
-   - 根据LLM分析结果，规范化输出，直接控制交叉口
-   - 添加多智能体模型框架，根据交通状况调用不同的控制算法
-2. **高级可视化功能**
-   - 添加热力图展示交通拥堵状况
-   - 支持历史数据回放功能
-   - 连接高德，增加3D路网可视化
+```bash
+# list available scenarios under ./scenarios
+uv run python api_server/mcp_server/mcp_server.py --list-scenarios
+
+# list TL IDs in a scenario
+uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_modes --list-tl-ids
+
+# run a scenario (auto-pick the .sumocfg inside)
+uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_modes
+
+# explicitly specify a .sumocfg when a directory contains multiple configs
+uv run python api_server/mcp_server/mcp_server.py --sumocfg scenarios/Doerpfeldstr_all_modes/all_modes.sumocfg
+
+# optional: choose TL ID, disable GUI, disable auto optimization
+uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_modes --tl-id J54 --nogui --no-auto-optimize
+```
+
+### Evaluation outputs
+
+- Metrics CSV examples: `results/intersection_metrics_*.csv`
+- Comparison notebook: `traffic_control_comparison.ipynb`
+- The bar chart above is stored at: `images/metrics_comparison_bars.png`
+
+## UI
+
+<img src="images/SUMO仿真界面.png" alt="SUMO" width="50%" height="50%">

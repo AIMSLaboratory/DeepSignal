@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+	<input>
+		<net-file value="data/Doerpfeldstr/net.net.xml.gz" />
+		<route-files value="data/Doerpfeldstr/samplertrips.rou.xml" />
+		<additional-files value="data/Doerpfeldstr/additional.add.xml" />
+	</input>
+	<time>
+		<begin value="50300" />
+		<end value="54100" />
+	</time>
+</configuration>
