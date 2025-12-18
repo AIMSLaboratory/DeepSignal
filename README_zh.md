@@ -8,6 +8,14 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 本仓库同时包含基于 SUMO 的仿真评估环境与 MCP Server，用于让大模型与交通仿真进行闭环交互。
 
+## 团队信息
+
+- **团队名称**：AIMSLab
+- **团队成员**：Feng Xiao, Da Lei, Yuzhan Liu, Jinyou Chi, Yabang, Wang.
+- **团队负责人（leader）**：Feng Xiao（个人主页：<https://bs.scu.edu.cn/guanlikexue/202403/9185.html>）
+- **联系邮箱**：<trains.ai.lab@gmail.com>
+
+
 ## 核心思路：离线学习 + 在线学习
 
 我们采用“离线 + 在线”的两阶段微调流程：
@@ -153,3 +161,16 @@ uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_mo
 ## UI
 
 <img src="images/SUMO仿真界面.png" alt="SUMO" width="50%" height="50%">
+
+## 引用
+
+如在研究中使用本项目，请引用：
+
+```bibtex
+@software{deepsignal_traffic_2025,
+  title   = {DeepSignal (Traffic): LLM-based Traffic Signal Control with SUMO + MCP},
+  author  = {AIMS Laboratory},
+  year    = {2025},
+  url     = {https://github.com/AIMSLaboratory/DeepSignal}
+}
+```
