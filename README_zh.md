@@ -2,7 +2,7 @@
 
 [English README](README.md)
 
-DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版本为 **DeepSignal-4B**。
+DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版本为 **DeepSignal-4B-V1**。
 
 - **模型地址（Hugging Face）**：[`AIMS2025/DeepSignal`](https://huggingface.co/AIMS2025/DeepSignal)
 
