@@ -130,7 +130,7 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
   - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
   - `max_saturation` $= \max_t \bar{s}_t$
   - `max_queue_length` $= \max_t \bar{q}_t$
-- Congestion index (0–1): $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$, where $L$ is the number of valid lanes and average_delay is the window-averaged per-lane waiting time (seconds).
+- Congestion index (0–1): $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$, where $L$ is the number of valid lanes and average delay is the window-averaged per-lane waiting time (seconds).
 - Congestion level thresholds (from CI):
   - Very smooth ($\mathrm{CI}<0.3$), Smooth ($0.3\le \mathrm{CI}<0.5$), Light congestion ($0.5\le \mathrm{CI}<0.7$), Moderate ($0.7\le \mathrm{CI}<0.9$), Severe ($\mathrm{CI}\ge 0.9$).
 
