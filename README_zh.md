@@ -124,9 +124,9 @@ $$
 - 单车道排队长度（米）: $q_{t,l}=h_{t,l}\cdot 5$  
 - 对有效车道数 $L_t$ 求步均值: 
   
-$$
+```math
 \bar{s}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} s_{t,l}, \quad \bar{q}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} q_{t,l}
-$$
+```
 
 - 对时间窗口内 $T$ 个仿真步求窗口均值/最大值：
   - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$

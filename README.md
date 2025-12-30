@@ -124,7 +124,9 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 - Per-lane saturation: $s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}$, where $n_{t,l}$ is the number of vehicles on lane $l$ at step $t$, and $h_{t,l}$ is the number of halting vehicles.
 - Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
 - Step averages over valid lanes $L_t$:
-  - $\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l},\ \bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$
+```math
+\bar{s}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} s_{t,l}, \quad \bar{q}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} q_{t,l}
+```
 - Window metrics over $T$ steps:
   - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
   - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
