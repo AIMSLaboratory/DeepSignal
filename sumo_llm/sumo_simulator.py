@@ -143,25 +143,21 @@ class SUMOSimulator:
         if time_window is None:
             return self.historical_data
         
-        # 计算时间窗口的起始时间
-        current_time = datetime.datetime.now()
-        start_time = current_time - datetime.timedelta(seconds=time_window)
-        
-        # 筛选时间窗口内的数据
-        filtered_data = {
-            'timestamps': [],
-            'phase_queues': [],
-            'phases': []
+        # 按仿真时间步数取最近 time_window 条记录（step-length=1.0 时等价于秒）
+        # 这里不再使用墙上时间，避免不同模型推理速度导致窗口长度不一致
+        total = len(self.historical_data.get('timestamps', []))
+        if total == 0:
+            return {
+                'timestamps': [],
+                'phase_queues': [],
+                'phases': []
+            }
+        start_idx = max(total - time_window, 0)
+        return {
+            'timestamps': self.historical_data['timestamps'][start_idx:],
+            'phase_queues': self.historical_data['phase_queues'][start_idx:],
+            'phases': self.historical_data['phases'][start_idx:]
         }
-        
-        for i, timestamp_str in enumerate(self.historical_data['timestamps']):
-            timestamp = datetime.datetime.fromisoformat(timestamp_str)
-            if timestamp >= start_time:
-                filtered_data['timestamps'].append(timestamp_str)
-                filtered_data['phase_queues'].append(self.historical_data['phase_queues'][i])
-                filtered_data['phases'].append(self.historical_data['phases'][i])
-        
-        return filtered_data
 
     def is_connected(self):
         """检查是否连接到SUMO"""

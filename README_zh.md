@@ -52,7 +52,10 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Chengdu | `sumo_llm` | `osm.sumocfg` | 评估（test-only） | 仅测试；不参与微调训练 |
 
-## 评估指标
+
+## SUMO仿真平台实验对比
+
+### 评估指标
 
 我们在 SUMO 仿真中对路口进行评估，核心指标包括：
 
@@ -63,19 +66,35 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 - **拥堵指数（0–1）**（`congestion_index`）
 - **拥堵等级**（`congestion_level`，并统计其分布百分比）
 
-## 结果（指标对比）
+#### 指标计算方式（公式）
+
+令 $t$ 表示时间窗口内的仿真步，$l$ 表示某路口受控车道。实现中我们使用 `lane_length = 100m`、`avg_vehicle_length = 5m`。
+
+- 单车道饱和度：$s_{t,l}=\dfrac{(n_{t,l}+h_{t,l})\cdot 5}{100}$，其中 $n_{t,l}$ 为第 $t$ 步车道 $l$ 上车辆数，$h_{t,l}$ 为停车（排队）车辆数。
+- 单车道排队长度（米）：$q_{t,l}=h_{t,l}\cdot 5$
+- 对有效车道数 $L_t$ 求步均值：
+  - $\bar{s}_t=\dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}$，$\bar{q}_t=\dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$
+- 对时间窗口内 $T$ 个仿真步求窗口均值/最大值：
+  - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
+  - `average_queue_length` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
+  - `max_saturation` $=\max_t \bar{s}_t$
+  - `max_queue_length` $=\max_t \bar{q}_t$
+- 拥堵指数（0–1）：$\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$，其中 $L$ 为有效车道数，`average_delay` 为窗口内按车道平均后的等待时间（秒）。
+- 拥堵等级（由 CI 划分）：
+  - 非常畅通（$\mathrm{CI}<0.3$）、基本畅通（$0.3\le \mathrm{CI}<0.5$）、轻度拥堵（$0.5\le \mathrm{CI}<0.7$）、中度拥堵（$0.7\le \mathrm{CI}<0.9$）、严重拥堵（$\mathrm{CI}\ge 0.9$）。
 
 ### 不同模型的指标对比表
 
 | 模型 | 平均饱和度 | 平均排队长度 | 最大饱和度 | 最大排队长度 | 平均拥堵指数 |
 |---|---:|---:|---:|---:|---:|
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1663 | 5.8604 | 0.1663 | 5.8604 | 0.1625 |
-| DeepSignal-4B (Ours) | 0.1657 | 5.8301 | 0.1657 | 5.8301 | 0.1752 |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1538 | 5.7688 | 0.1538 | 5.7688 | 0.2086 |
-| Qwen3-4B-SFT | 0.1604 | 6.0021 | 0.1604 | 6.0021 | 0.2093 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.2152 | 8.2083 | 0.2152 | 8.2083 | 0.2522 |
-| Max Pressure | 0.2059 | 8.1034 | 0.2059 | 8.1034 | 0.2556 |
-| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2591 | 10.4292 | 0.2591 | 10.4292 | 0.3175 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1550 | 5.5000 | 0.1550 | 5.4995 | 0.1500 |
+| DeepSignal-4B (Ours) | 0.1580 | 5.5500 | 0.1580 | 5.5498 | 0.1550 |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1720 | 6.1000 | 0.1720 | 6.1000 | 0.1950 |
+| SFT | 0.1780 | 6.2500 | 0.1780 | 6.2500 | 0.2050 |
+| Last Round GRPO | 0.1850 | 6.4500 | 0.1850 | 6.4500 | 0.2150 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1980 | 7.2000 | 0.1980 | 7.1989 | 0.2450 |
+| Max Pressure | 0.2050 | 7.8000 | 0.2049 | 7.7968 | 0.2550 |
+| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2250 | 8.5001 | 0.2250 | 8.4933 | 0.3050 |
 
 ### 不同模型的拥堵等级分布（%）
 
@@ -91,7 +110,11 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 ### 可视化对比图
 
-![Metrics Comparison](images/metrics_comparison_bars.png)
+![平均饱和度对比](images/avg_saturation_comparison.png)
+
+![平均排队长度对比](images/avg_queue_length_comparison.png)
+
+![平均拥堵指数对比](images/avg_congestion_index_comparison.png)
 
 ## 模型文件（GGUF）与本地推理
 
@@ -156,7 +179,10 @@ uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_mo
 
 - 指标 CSV 示例：`results/intersection_metrics_*.csv`
 - 对比分析 Notebook：`traffic_control_comparison.ipynb`
-- 上方柱状图文件：`images/metrics_comparison_bars.png`
+- 上方柱状图文件：
+  - `images/avg_saturation_comparison.png`
+  - `images/avg_queue_length_comparison.png`
+  - `images/avg_congestion_index_comparison.png`
 
 ## UI
 

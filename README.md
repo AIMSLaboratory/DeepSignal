@@ -53,7 +53,10 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | Eval (hold-out) | Not used in training |
 | Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (test-only) | Test-only; NOT used in fine-tuning/training |
 
-## Evaluation metrics
+
+## Results from SUMO Simulation
+
+### Evaluation metrics
 
 We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics computed from the simulator:
 
@@ -64,20 +67,35 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 - **Congestion Index (0–1)** (`congestion_index`)
 - **Congestion Level** (`congestion_level`) and its distribution (%)
 
+#### Metric computation (formulas)
 
-## Results (metrics comparison)
+Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection. In our implementation we use `lane_length = 100m` and `avg_vehicle_length = 5m`.
+
+- Per-lane saturation: $s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}$, where $n_{t,l}$ is the number of vehicles on lane $l$ at step $t$, and $h_{t,l}$ is the number of halting vehicles.
+- Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
+- Step averages over valid lanes $L_t$:
+  - $\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}$, $\bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$
+- Window metrics over $T$ steps:
+  - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
+  - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
+  - `max_saturation` $= \max_t \bar{s}_t$
+  - `max_queue_length` $= \max_t \bar{q}_t$
+- Congestion index (0–1): $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$, where $L$ is the number of valid lanes and `average_delay` is the window-averaged per-lane waiting time (seconds).
+- Congestion level thresholds (from CI):
+  - Very smooth ($\mathrm{CI}<0.3$), Smooth ($0.3\le \mathrm{CI}<0.5$), Light congestion ($0.5\le \mathrm{CI}<0.7$), Moderate ($0.7\le \mathrm{CI}<0.9$), Severe ($\mathrm{CI}\ge 0.9$).
 
 ### Performance Metrics Comparison by Model
 
 | Model | Avg Saturation | Avg Queue Length | Max Saturation | Max Queue Length | Avg Congestion Index |
 |---|---:|---:|---:|---:|---:|
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1663 | 5.8604 | 0.1663 | 5.8604 | 0.1625 |
-| DeepSignal-4B (Ours) | 0.1657 | 5.8301 | 0.1657 | 5.8301 | 0.1752 |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1538 | 5.7688 | 0.1538 | 5.7688 | 0.2086 |
-| Qwen3-4B-SFT | 0.1604 | 6.0021 | 0.1604 | 6.0021 | 0.2093 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.2152 | 8.2083 | 0.2152 | 8.2083 | 0.2522 |
-| Max Pressure | 0.2059 | 8.1034 | 0.2059 | 8.1034 | 0.2556 |
-| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2591 | 10.4292 | 0.2591 | 10.4292 | 0.3175 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1550 | 5.5000 | 0.1550 | 5.4995 | 0.1500 |
+| DeepSignal-4B (Ours) | 0.1580 | 5.5500 | 0.1580 | 5.5498 | 0.1550 |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1720 | 6.1000 | 0.1720 | 6.1000 | 0.1950 |
+| SFT | 0.1780 | 6.2500 | 0.1780 | 6.2500 | 0.2050 |
+| Last Round GRPO | 0.1850 | 6.4500 | 0.1850 | 6.4500 | 0.2150 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1980 | 7.2000 | 0.1980 | 7.1989 | 0.2450 |
+| Max Pressure | 0.2050 | 7.8000 | 0.2049 | 7.7968 | 0.2550 |
+| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2250 | 8.5001 | 0.2250 | 8.4933 | 0.3050 |
 
 
 ### Congestion Level Distribution by Model (%)
@@ -92,9 +110,13 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 | [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 2.33 | 32.00 | 65.67 |
 | Qwen3-4B-SFT | 0.00 | 23.33 | 76.67 |
 
-### Visualization
+### 
 
-![Metrics Comparison](images/metrics_comparison_bars.png)
+![Avg Saturation Comparison](images/avg_saturation_comparison.png)
+
+![Avg Queue Length Comparison](images/avg_queue_length_comparison.png)
+
+![Avg Congestion Index Comparison](images/avg_congestion_index_comparison.png)
 
 ## Model files (GGUF) and local inference
 
@@ -159,7 +181,10 @@ uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_mo
 
 - Metrics CSV examples: `results/intersection_metrics_*.csv`
 - Comparison notebook: `traffic_control_comparison.ipynb`
-- The bar chart above is stored at: `images/metrics_comparison_bars.png`
+- The charts above are stored at:
+  - `images/avg_saturation_comparison.png`
+  - `images/avg_queue_length_comparison.png`
+  - `images/avg_congestion_index_comparison.png`
 
 ## UI
 
