@@ -132,9 +132,11 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
   - `max_queue_length` $= \max_t \bar{q}_t$
 - Congestion index (0–1):
 
-$$
-\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)
-$$
+```math
+\mathrm{CI}=0.4\cdot \min\!\left(\mathrm{average\_saturation},1\right)
++ 0.3\cdot \min\!\left(\dfrac{\mathrm{average\_queue\_length}}{L\cdot 50},1\right)
++ 0.3\cdot \min\!\left(\dfrac{\mathrm{average\_delay}}{60},1\right)
+```
 
 Where $L$ is the number of valid lanes and average delay is the window-averaged per-lane waiting time (seconds).
 - Congestion level thresholds (from CI):
