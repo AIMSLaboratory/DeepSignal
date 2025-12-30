@@ -131,7 +131,7 @@ $$
   - `max_queue_length`  $=\max_t \bar{q}_t$ 
 - 拥堵指数（0–1）： $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$，其中 $L$ 为有效车道数，`average_delay` 为窗口内按车道平均后的等待时间（秒）。
 - 拥堵等级（由 CI 划分）：
-  - 非常畅通（$\mathrm{CI}<0.3$）、基本畅通（$0.3\le \mathrm{CI}<0.5$）、轻度拥堵（$0.5\le \mathrm{CI}<0.7$）、中度拥堵（$0.7\le \mathrm{CI}<0.9$）、严重拥堵（$\mathrm{CI}\ge 0.9$）。
+  - 非常畅通（ $\mathrm{CI}<0.3$ ）、基本畅通（ $0.3\le \mathrm{CI}<0.5$ ）、轻度拥堵（$0.5\le \mathrm{CI}<0.7$）、中度拥堵（ $0.7\le \mathrm{CI}<0.9$ ）、严重拥堵（$\mathrm{CI}\ge 0.9$）。
 
 ### 不同模型的指标对比表
 
