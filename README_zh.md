@@ -50,7 +50,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 评估（hold-out） | 未参与训练 |
-| Chengdu | `sumo_llm` | `osm.sumocfg` | 评估（test-only） | 仅测试；不参与微调训练 |
+| Chengdu | `sumo_llm` | `osm.sumocfg` | 评估（hold-out） | 未参与训练 |
 
 
 ## 成都市某交叉口大模型配时优化实际效果对比
