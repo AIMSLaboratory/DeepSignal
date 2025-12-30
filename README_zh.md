@@ -123,7 +123,7 @@ $$
 - 单车道饱和度：$s_{t,l}=\frac{(n_{t,l}+h_{t,l})\cdot 5}{100}$，其中 $n_{t,l}$ 为第 $t$ 步车道 $l$ 上车辆数，$h_{t,l}$ 为停车（排队）车辆数。
 - 单车道排队长度（米）：$q_{t,l}=h_{t,l}\cdot 5$
 - 对有效车道数 $L_t$ 求步均值：
-  - $\bar{s}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l},\ \bar{q}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$
+  - $$\bar{s}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l},\ \bar{q}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$$
 - 对时间窗口内 $T$ 个仿真步求窗口均值/最大值：
   - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
   - `average_queue_length` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
