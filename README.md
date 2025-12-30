@@ -7,7 +7,7 @@ DeepSignal is our in-house fine-tuned large language model for **traffic-signal 
 - **Model (Hugging Face)**: [`AIMS2025/DeepSignal`](https://huggingface.co/AIMS2025/DeepSignal)
 
 
-This repository also contains a SUMO-based simulation stack and an MCP server to run closed-loop interaction between the LLM and traffic simulations.
+This repository also contains a SUMO-based simulation stack and an MCP server to run closed-loop interaction between the LLM and traffic simulations, to evaluate the performance of various baseline signal control models/algorithms, and compare with DeepSignal-4B-V1. This repository does not include the code for fine-tuning the large model.
 
 ## Team
 
@@ -54,13 +54,13 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (test-only) | Test-only; NOT used in fine-tuning/training |
 
 
-## 成都某交叉口大模型配时优化实际效果对比
+## Chengdu Real-world Deployment Comparison
 
-This section reports a **real-world deployment** comparison between LLM-based signal control (Current) and a baseline strategy (Yesterday). The visualization data comes from `hf/control_effect_congestion.json` (1-second sampling; charts are labeled in English for presentation).
+This section reports a **real-world deployment** comparison between LLM-based signal control (2025-12-25 14:10:05-2025-12-25 17:17:00, Current) and a baseline strategy (Fixed signal timing plan, 2025-12-24 14:10:05-2025-12-24 17:17:00, Yesterday). The visualization digits come from identified data of the CCTV traffic camera footage.
 
 ### Metric computation (real-world)
 
-The congestion index is constructed hierarchically from **phase → intersection → minute → cumulative** time scales (see `hf/成都某交叉口大模型信号控制.md`):
+The congestion index is constructed hierarchically from **phase → intersection → minute → cumulative** time scales:
 
 1) **Phase-level congestion score**  
 Assume an intersection has $P$ signal phases. Let $q_p(t)$ be the observed vehicle count (or discharged vehicles) for phase $p$ during a unit time at sampling time $t$. The empirical phase capacity $C_p$ is estimated from historical observations:
@@ -185,7 +185,10 @@ If you are looking for GGUF files for local inference (`llama.cpp` / LM Studio),
 Example (llama.cpp):
 
 ```bash
-llama-cli -m DeepSignal-4B_V1.F16.gguf -p "Summarize the traffic state and suggest a signal timing adjustment."
+llama-cli -m DeepSignal-4B_V1.F16.gguf -p "You are a traffic management expert. You can use your traffic knowledge to solve the traffic signal control task.
+Based on the given traffic scene and state, predict the next signal phase and its duration.
+You must answer directly, the format must be: next signal phase: {number}, duration: {seconds} seconds
+where the number is the phase index (starting from 0) and the seconds is the duration (usually between 20-90 seconds)."
 ```
 
 ## Environment setup
