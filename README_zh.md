@@ -55,7 +55,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 ## 成都市某交叉口大模型配时优化实际效果对比
 
-本节展示**真实路口部署**中，大模型信号控制（2025-12-25 14:10:05-2025-12-25 17:17:00, Current）相对基线策略（固定信号配时方案, 2025-12-24 14:10:05-2025-12-24 17:17:00, Yesterday）的实际效果对比。用于可视化的数据来自 CCTV 交通摄像头录像经计算机识别得到的数字。
+本节展示**真实交叉口信控部署**中，大模型信号控制（图中标记为Current）和基线策略（固定信号配时方案, 图中标记为Yesterday）在同一交叉口，不同两天（2025-12-25 和 2025-12-24）的同时段（14:10:05-17:17:00）进行信控控制的实际效果对比。用于可视化的数据来自 CCTV 交通摄像头录像经计算机识别得到的数字。
 
 ### 指标计算方法（实际部署）
 
@@ -91,16 +91,17 @@ $$
 \end{cases}
 $$
 
-4) **拥堵指数时间累积**（从起始参考时刻到第 $T$ 分钟）
+4) **累积拥堵指数**（从起始参考时刻到第 $T$ 分钟）
 
 $$
 CI(T) = \sum_{m=1}^{T} \bar{S}(m)
 $$
 
 ### 可视化对比
-
+实时拥堵指数时间序列对比：
 ![Congestion Index Time-series Comparison](images/congestion_index_timeseries_comparison.gif)
 
+累计拥堵指数对比：
 ![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison.png)
 
 ## SUMO仿真平台实验对比
@@ -171,10 +172,13 @@ $$
 | Qwen3-4B-SFT | 0.00 | 23.33 | 76.67 |
 
 ### 可视化对比图
-
+平均饱和度对比：
 ![平均饱和度对比](images/avg_saturation_comparison.png)
 
+平均排队长度对比：
 ![平均排队长度对比](images/avg_queue_length_comparison.png)
+
+平均拥堵指数对比：
 
 ![平均拥堵指数对比](images/avg_congestion_index_comparison.png)
 

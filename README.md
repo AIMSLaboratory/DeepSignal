@@ -7,7 +7,7 @@ DeepSignal is our in-house fine-tuned large language model for **traffic-signal 
 - **Model (Hugging Face)**: [`AIMS2025/DeepSignal`](https://huggingface.co/AIMS2025/DeepSignal)
 
 
-This repository also contains a SUMO-based simulation stack and an MCP server to run closed-loop interaction between the LLM and traffic simulations, to evaluate the performance of various baseline signal control models/algorithms, and compare with DeepSignal-4B-V1. This repository does not include the code for fine-tuning the large model.
+This repository also contains a SUMO-based simulation stack and an MCP server to run closed-loop interaction between the LLM and traffic simulations, to evaluate the performance of various baseline signal control models/algorithms, and compare with DeepSignal-4B-V1. Currently, this repository does not include the code for fine-tuning the large language model.
 
 ## Team
 
@@ -56,7 +56,7 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 
 ## Chengdu Real-world Deployment Comparison
 
-This section reports a **real-world deployment** comparison between LLM-based signal control (2025-12-25 14:10:05-2025-12-25 17:17:00, Current) and a baseline strategy (Fixed signal timing plan, 2025-12-24 14:10:05-2025-12-24 17:17:00, Yesterday). The visualization digits come from identified data of the CCTV traffic camera footage.
+This section reports a **real-world deployment** comparison between LLM-based signal control (Current) and a baseline strategy (Fixed signal timing plan, Yesterday) in the same intersection, on different days (2025-12-25 and 2025-12-24) during the same time period (14:10:05-17:17:00). The visualization digits come from identified data of the CCTV traffic camera footage.
 
 ### Metric computation (real-world)
 
@@ -99,9 +99,10 @@ CI(T) = \sum_{m=1}^{T} \bar{S}(m)
 $$
 
 ### Visual comparison
-
+Congestion index time-series comparison:
 ![Congestion Index Time-series Comparison](images/congestion_index_timeseries_comparison.gif)
 
+Cumulative congestion index comparison:
 ![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison.png)
 
 ## Results from SUMO Simulation
@@ -171,10 +172,13 @@ Where $L$ is the number of valid lanes and average delay is the window-averaged 
 | Qwen3-4B-SFT | 0.00 | 23.33 | 76.67 |
 
 ### 
-
+Average saturation comparison:
 ![Avg Saturation Comparison](images/avg_saturation_comparison.png)
 
+Average queue length comparison:
 ![Avg Queue Length Comparison](images/avg_queue_length_comparison.png)
+
+Average congestion index comparison:
 
 ![Avg Congestion Index Comparison](images/avg_congestion_index_comparison.png)
 
