@@ -123,13 +123,13 @@ $$
 - 单车道饱和度: $s_{t,l}=\frac{(n_{t,l}+h_{t,l})\cdot 5}{100}$，其中 $n_{t,l}$ 为第 $t$ 步车道 $l$ 上车辆数，$h_{t,l}$ 为停车（排队）车辆数。
 - 单车道排队长度（米）： $q_{t,l}=h_{t,l}\cdot 5$ 
 - 对有效车道数 $L_t$ 求步均值：
-  -  $\bar{s}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}$，$\bar{q}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$ 
+  -  $\bar{s}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}$ ， $\bar{q}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$ 
 - 对时间窗口内 $T$ 个仿真步求窗口均值/最大值：
   - `average_saturation`  $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$ 
   - `average_queue_length`  $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$ 
   - `max_saturation`  $=\max_t \bar{s}_t$ 
   - `max_queue_length`  $=\max_t \bar{q}_t$ 
-- 拥堵指数（0–1）：$\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$，其中 $L$ 为有效车道数，`average_delay` 为窗口内按车道平均后的等待时间（秒）。
+- 拥堵指数（0–1）： $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$，其中 $L$ 为有效车道数，`average_delay` 为窗口内按车道平均后的等待时间（秒）。
 - 拥堵等级（由 CI 划分）：
   - 非常畅通（$\mathrm{CI}<0.3$）、基本畅通（$0.3\le \mathrm{CI}<0.5$）、轻度拥堵（$0.5\le \mathrm{CI}<0.7$）、中度拥堵（$0.7\le \mathrm{CI}<0.9$）、严重拥堵（$\mathrm{CI}\ge 0.9$）。
 
