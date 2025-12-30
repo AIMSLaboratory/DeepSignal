@@ -2,7 +2,7 @@
 
 [中文 README](README_zh.md)
 
-DeepSignal is our in-house fine-tuned large language model for **traffic-signal control**. The current release is **DeepSignal-4B**.
+DeepSignal is our in-house fine-tuned large language model for **traffic-signal control**. The current release is **DeepSignal-4B-V1**.
 
 - **Model (Hugging Face)**: [`AIMS2025/DeepSignal`](https://huggingface.co/AIMS2025/DeepSignal)
 
