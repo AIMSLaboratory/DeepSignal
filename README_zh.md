@@ -62,13 +62,13 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 该拥堵指数从**相位—路口—分钟—时间累积**四个层次逐级构建，核心定义如下（详见 `hf/成都某交叉口大模型信号控制.md`）：
 
 1) **相位层面的拥堵得分**  
-设一个交叉口包含 $P$ 个信号相位。令 $q_p(t)$ 表示采样时刻 $t$ 下，相位 $p$ 的单位时间内实际车辆数（或放行车辆数）。相位 $p$ 的理论通行能力 $C_p$ 由历史观测估计：
+设一个交叉口包含 \(P\) 个信号相位。令 \(q_p(t)\) 表示采样时刻 \(t\) 下，相位 \(p\) 的单位时间内实际车辆数（或放行车辆数）。相位 \(p\) 的理论通行能力 \(C_p\) 由历史观测估计：
 
 $$
 C_p = \max_{t \in \mathcal{T}_{\text{hist}}} q_p(t)
 $$
 
-相位 $p$ 在时刻 $t$ 的瞬时拥堵得分为：
+相位 \(p\) 在时刻 \(t\) 的瞬时拥堵得分为：
 
 $$
 s_p(t) = \min \left( 100 \cdot \frac{q_p(t)}{C_p}, 100 \right)
@@ -81,7 +81,7 @@ S(t) = \frac{1}{P} \sum_{p=1}^{P} s_p(t)
 $$
 
 3) **分钟尺度拥堵指数**（同一分钟可能有多次采样）  
-设第 $m$ 分钟内共有 $N_m$ 个有效采样时刻 $t_1,\dots,t_{N_m}$：
+设第 \(m\) 分钟内共有 \(N_m\) 个有效采样时刻 \(t_1,\dots,t_{N_m}\)：
 
 $$
 \bar{S}(m) =
@@ -118,20 +118,20 @@ $$
 
 #### 指标计算方式（公式）
 
-令 $t$ 表示时间窗口内的仿真步，$l$ 表示某路口受控车道。实现中我们使用 `lane_length = 100m`、`avg_vehicle_length = 5m`。
+令 \(t\) 表示时间窗口内的仿真步，\(l\) 表示某路口受控车道。实现中我们使用 `lane_length = 100m`、`avg_vehicle_length = 5m`。
 
-- 单车道饱和度: $s_{t,l}=\frac{(n_{t,l}+h_{t,l})\cdot 5}{100}$，其中 $n_{t,l}$ 为第 $t$ 步车道 $l$ 上车辆数，$h_{t,l}$ 为停车（排队）车辆数。
-- 单车道排队长度（米）： $q_{t,l}=h_{t,l}\cdot 5$ 
-- 对有效车道数 $L_t$ 求步均值：
-  -  $\bar{s}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}$ ， $\bar{q}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$ 
-- 对时间窗口内 $T$ 个仿真步求窗口均值/最大值：
-  - `average_saturation`  $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$ 
-  - `average_queue_length`  $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$ 
-  - `max_saturation`  $=\max_t \bar{s}_t$ 
-  - `max_queue_length`  $=\max_t \bar{q}_t$ 
-- 拥堵指数（0–1）： $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$，其中 $L$ 为有效车道数，`average_delay` 为窗口内按车道平均后的等待时间（秒）。
+- 单车道饱和度：\(s_{t,l}=\frac{(n_{t,l}+h_{t,l})\cdot 5}{100}\)，其中 \(n_{t,l}\) 为第 \(t\) 步车道 \(l\) 上车辆数，\(h_{t,l}\) 为停车（排队）车辆数。
+- 单车道排队长度（米）：\(q_{t,l}=h_{t,l}\cdot 5\)
+- 对有效车道数 \(L_t\) 求步均值：
+  - \(\\bar{s}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}\)，\(\\bar{q}_t=\frac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}\)
+- 对时间窗口内 \(T\) 个仿真步求窗口均值/最大值：
+  - `average_saturation` \(=\dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t\)
+  - `average_queue_length` \(=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t\)
+  - `max_saturation` \(=\max_t \bar{s}_t\)
+  - `max_queue_length` \(=\max_t \bar{q}_t\)
+- 拥堵指数（0–1）：\(\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)\)，其中 \(L\) 为有效车道数，`average_delay` 为窗口内按车道平均后的等待时间（秒）。
 - 拥堵等级（由 CI 划分）：
-  - 非常畅通（ $\mathrm{CI}<0.3$ ）、基本畅通（ $0.3\le \mathrm{CI}<0.5$ ）、轻度拥堵（$0.5\le \mathrm{CI}<0.7$）、中度拥堵（ $0.7\le \mathrm{CI}<0.9$ ）、严重拥堵（$\mathrm{CI}\ge 0.9$）。
+  - 非常畅通（\(\mathrm{CI}<0.3\)）、基本畅通（\(0.3\le \mathrm{CI}<0.5\)）、轻度拥堵（\(0.5\le \mathrm{CI}<0.7\)）、中度拥堵（\(0.7\le \mathrm{CI}<0.9\)）、严重拥堵（\(\mathrm{CI}\ge 0.9\)）。
 
 ### 不同模型的指标对比表
 
