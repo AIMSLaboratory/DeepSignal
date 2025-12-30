@@ -124,13 +124,19 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 - Per-lane saturation: $s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}$, where $n_{t,l}$ is the number of vehicles on lane $l$ at step $t$, and $h_{t,l}$ is the number of halting vehicles.
 - Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
 - Step averages over valid lanes $L_t$:
-  - $\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}$, $\bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$
+  - $\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l},\ \bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$
 - Window metrics over $T$ steps:
   - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
   - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
   - `max_saturation` $= \max_t \bar{s}_t$
   - `max_queue_length` $= \max_t \bar{q}_t$
-- Congestion index (0–1): $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$, where $L$ is the number of valid lanes and average delay is the window-averaged per-lane waiting time (seconds).
+- Congestion index (0–1):
+
+$$
+\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)
+$$
+
+Where $L$ is the number of valid lanes and average delay is the window-averaged per-lane waiting time (seconds).
 - Congestion level thresholds (from CI):
   - Very smooth ($\mathrm{CI}<0.3$), Smooth ($0.3\le \mathrm{CI}<0.5$), Light congestion ($0.5\le \mathrm{CI}<0.7$), Moderate ($0.7\le \mathrm{CI}<0.9$), Severe ($\mathrm{CI}\ge 0.9$).
 
