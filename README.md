@@ -63,7 +63,7 @@ This section reports a **real-world deployment** comparison between LLM-based si
 The congestion index is constructed hierarchically from **phase → intersection → minute → cumulative** time scales (see `hf/成都某交叉口大模型信号控制.md`):
 
 1) **Phase-level congestion score**  
-Assume an intersection has \(P\) signal phases. Let \(q_p(t)\) be the observed vehicle count (or discharged vehicles) for phase \(p\) during a unit time at sampling time \(t\). The empirical phase capacity \(C_p\) is estimated from historical observations:
+Assume an intersection has $P$ signal phases. Let $q_p(t)$ be the observed vehicle count (or discharged vehicles) for phase $p$ during a unit time at sampling time $t$. The empirical phase capacity $C_p$ is estimated from historical observations:
 
 $$
 C_p = \max_{t \in \mathcal{T}_{\text{hist}}} q_p(t)
@@ -82,7 +82,7 @@ S(t) = \frac{1}{P} \sum_{p=1}^{P} s_p(t)
 $$
 
 3) **Minute-level congestion index** (multiple samples per minute)  
-Let minute \(m\) contain \(N_m\) valid samples \(t_1,\dots,t_{N_m}\):
+Let minute $m$ contain $N_m$ valid samples $t_1,\dots,t_{N_m}$:
 
 $$
 \bar{S}(m) =
@@ -92,7 +92,7 @@ $$
 \end{cases}
 $$
 
-4) **Cumulative congestion index** (from the start reference to minute \(T\))
+4) **Cumulative congestion index** (from the start reference to minute $T$)
 
 $$
 CI(T) = \sum_{m=1}^{T} \bar{S}(m)
@@ -119,20 +119,20 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 
 #### Metric computation (formulas)
 
-Let \(t\) index simulation steps in a time window, and \(l\) index controlled lanes at an intersection. In our implementation we use `lane_length = 100m` and `avg_vehicle_length = 5m`.
+Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection. In our implementation we use `lane_length = 100m` and `avg_vehicle_length = 5m`.
 
-- Per-lane saturation: \(s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}\), where \(n_{t,l}\) is the number of vehicles on lane \(l\) at step \(t\), and \(h_{t,l}\) is the number of halting vehicles.
-- Per-lane queue length (meters): \(q_{t,l} = h_{t,l}\cdot 5\)
-- Step averages over valid lanes \(L_t\):
-  - \(\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}\), \(\bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}\)
-- Window metrics over \(T\) steps:
-  - `average_saturation` \(= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t\)
-  - `average_queue_length` \(= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t\)
-  - `max_saturation` \(= \max_t \bar{s}_t\)
-  - `max_queue_length` \(= \max_t \bar{q}_t\)
-- Congestion index (0–1): \(\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)\), where \(L\) is the number of valid lanes and average delay is the window-averaged per-lane waiting time (seconds).
+- Per-lane saturation: $s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}$, where $n_{t,l}$ is the number of vehicles on lane $l$ at step $t$, and $h_{t,l}$ is the number of halting vehicles.
+- Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
+- Step averages over valid lanes $L_t$:
+  - $\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}$, $\bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}$
+- Window metrics over $T$ steps:
+  - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
+  - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
+  - `max_saturation` $= \max_t \bar{s}_t$
+  - `max_queue_length` $= \max_t \bar{q}_t$
+- Congestion index (0–1): $\mathrm{CI}=0.4\cdot \min(\text{average\_saturation},1) + 0.3\cdot \min\!\left(\dfrac{\text{average\_queue\_length}}{L\cdot 50},1\right) + 0.3\cdot \min\!\left(\dfrac{\text{average\_delay}}{60},1\right)$, where $L$ is the number of valid lanes and average delay is the window-averaged per-lane waiting time (seconds).
 - Congestion level thresholds (from CI):
-  - Very smooth (\(\mathrm{CI}<0.3\)), Smooth (\(0.3\le \mathrm{CI}<0.5\)), Light congestion (\(0.5\le \mathrm{CI}<0.7\)), Moderate (\(0.7\le \mathrm{CI}<0.9\)), Severe (\(\mathrm{CI}\ge 0.9\)).
+  - Very smooth ($\mathrm{CI}<0.3$), Smooth ($0.3\le \mathrm{CI}<0.5$), Light congestion ($0.5\le \mathrm{CI}<0.7$), Moderate ($0.7\le \mathrm{CI}<0.9$), Severe ($\mathrm{CI}\ge 0.9$).
 
 ### Performance Metrics Comparison by Model
 
