@@ -51,7 +51,7 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | Eval (hold-out) | Not used in training |
 | Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | Eval (hold-out) | Not used in training |
 | Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | Eval (hold-out) | Not used in training |
-| Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (test-only) | Test-only; NOT used in fine-tuning/training |
+| Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (hold-out) | Not used in training |
 
 
 ## Chengdu Real-world Deployment Comparison
