@@ -135,6 +135,7 @@ $$
   - `max_queue_length` $=\max_t \bar{q}_t$
 - 拥堵指数（0–1）:
 
+
 $$
 \mathrm{CI}=0.4\cdot \min\!\left(\mathrm{average\_saturation},1\right)
 + 0.3\cdot \min\!\left(\dfrac{\mathrm{average\_queue\_length}}{L\cdot 50},1\right)
