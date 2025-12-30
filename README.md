@@ -54,6 +54,56 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (test-only) | Test-only; NOT used in fine-tuning/training |
 
 
+## 成都某交叉口大模型配时优化实际效果对比
+
+This section reports a **real-world deployment** comparison between LLM-based signal control (Current) and a baseline strategy (Yesterday). The visualization data comes from `hf/control_effect_congestion.json` (1-second sampling; charts are labeled in English for presentation).
+
+### Metric computation (real-world)
+
+The congestion index is constructed hierarchically from **phase → intersection → minute → cumulative** time scales (see `hf/成都某交叉口大模型信号控制.md`):
+
+1) **Phase-level congestion score**  
+Assume an intersection has $P$ signal phases. Let $q_p(t)$ be the observed vehicle count (or discharged vehicles) for phase $p$ during a unit time at sampling time $t$. The empirical phase capacity $C_p$ is estimated from historical observations:
+
+$$
+C_p = \max_{t \in \mathcal{T}_{\text{hist}}} q_p(t)
+$$
+
+The instantaneous phase congestion score is:
+
+$$
+s_p(t) = \min \left( 100 \cdot \frac{q_p(t)}{C_p}, 100 \right)
+$$
+
+2) **Intersection-level instantaneous score**
+
+$$
+S(t) = \frac{1}{P} \sum_{p=1}^{P} s_p(t)
+$$
+
+3) **Minute-level congestion index** (multiple samples per minute)  
+Let minute $m$ contain $N_m$ valid samples $t_1,\dots,t_{N_m}$:
+
+$$
+\bar{S}(m) =
+\begin{cases}
+\frac{1}{N_m} \sum_{i=1}^{N_m} S(t_i), & N_m > 0, \\
+0, & N_m = 0.
+\end{cases}
+$$
+
+4) **Cumulative congestion index** (from the start reference to minute $T$)
+
+$$
+CI(T) = \sum_{m=1}^{T} \bar{S}(m)
+$$
+
+### Visual comparison
+
+![Congestion Index Time-series Comparison](images/congestion_index_timeseries_comparison.gif)
+
+![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison.png)
+
 ## Results from SUMO Simulation
 
 ### Evaluation metrics

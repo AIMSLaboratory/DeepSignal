@@ -53,6 +53,56 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | Chengdu | `sumo_llm` | `osm.sumocfg` | 评估（test-only） | 仅测试；不参与微调训练 |
 
 
+## 成都某交叉口大模型配时优化实际效果对比
+
+本节展示**真实路口部署**中，大模型信号控制（Current）相对基线策略（Yesterday）的实际效果对比。可视化数据来自 `hf/control_effect_congestion.json`（采样粒度 1s，图内标注使用英文以便展示）。
+
+### 指标计算方法（实际部署）
+
+该拥堵指数从**相位—路口—分钟—时间累积**四个层次逐级构建，核心定义如下（详见 `hf/成都某交叉口大模型信号控制.md`）：
+
+1) **相位层面的拥堵得分**  
+设一个交叉口包含 $P$ 个信号相位。令 $q_p(t)$ 表示采样时刻 $t$ 下，相位 $p$ 的单位时间内实际车辆数（或放行车辆数）。相位 $p$ 的理论通行能力 $C_p$ 由历史观测估计：
+
+$$
+C_p = \max_{t \in \mathcal{T}_{\text{hist}}} q_p(t)
+$$
+
+相位 $p$ 在时刻 $t$ 的瞬时拥堵得分为：
+
+$$
+s_p(t) = \min \left( 100 \cdot \frac{q_p(t)}{C_p}, 100 \right)
+$$
+
+2) **路口层面的瞬时拥堵得分**
+
+$$
+S(t) = \frac{1}{P} \sum_{p=1}^{P} s_p(t)
+$$
+
+3) **分钟尺度拥堵指数**（同一分钟可能有多次采样）  
+设第 $m$ 分钟内共有 $N_m$ 个有效采样时刻 $t_1,\dots,t_{N_m}$：
+
+$$
+\bar{S}(m) =
+\begin{cases}
+\frac{1}{N_m} \sum_{i=1}^{N_m} S(t_i), & N_m > 0, \\
+0, & N_m = 0.
+\end{cases}
+$$
+
+4) **拥堵指数时间累积**（从起始参考时刻到第 $T$ 分钟）
+
+$$
+CI(T) = \sum_{m=1}^{T} \bar{S}(m)
+$$
+
+### 可视化对比
+
+![Congestion Index Time-series Comparison](images/congestion_index_timeseries_comparison.gif)
+
+![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison.png)
+
 ## SUMO仿真平台实验对比
 
 ### 评估指标

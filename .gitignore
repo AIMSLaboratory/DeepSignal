@@ -10,5 +10,8 @@ dl_model.py
 *.txt
 hf/
 scripts/
+!scripts/render_control_effect_congestion_gif.py
+!scripts/render_control_effect_congestion_cumulative.py
+.cache/
 *.jsonl
 traffic_control_comparison.ipynb
