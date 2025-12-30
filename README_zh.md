@@ -135,12 +135,11 @@ $$
   - `max_queue_length` $=\max_t \bar{q}_t$
 - 拥堵指数（0–1）:
 
-
-$$
+```math
 \mathrm{CI}=0.4\cdot \min\!\left(\mathrm{average\_saturation},1\right)
 + 0.3\cdot \min\!\left(\dfrac{\mathrm{average\_queue\_length}}{L\cdot 50},1\right)
 + 0.3\cdot \min\!\left(\dfrac{\mathrm{average\_delay}}{60},1\right)
-$$
+```
 
 其中 $L$ 为有效车道数，`average_delay` 为窗口内按车道平均后的等待时间（秒）。
 - 拥堵等级（由 CI 划分）：
