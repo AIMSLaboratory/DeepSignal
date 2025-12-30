@@ -92,7 +92,7 @@ $$
 \end{cases}
 $$
 
-4) **Cumulative congestion index** (from the start reference to minute $T$)
+4) **Cumulative congestion index** (from the start reference to minute \(T\))
 
 $$
 CI(T) = \sum_{m=1}^{T} \bar{S}(m)
@@ -124,7 +124,7 @@ Let \(t\) index simulation steps in a time window, and \(l\) index controlled la
 - Per-lane saturation: \(s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}\), where \(n_{t,l}\) is the number of vehicles on lane \(l\) at step \(t\), and \(h_{t,l}\) is the number of halting vehicles.
 - Per-lane queue length (meters): \(q_{t,l} = h_{t,l}\cdot 5\)
 - Step averages over valid lanes \(L_t\):
-  - \(\\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}\), \(\\bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}\)
+  - \(\bar{s}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} s_{t,l}\), \(\bar{q}_t = \dfrac{1}{L_t}\sum_{l=1}^{L_t} q_{t,l}\)
 - Window metrics over \(T\) steps:
   - `average_saturation` \(= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t\)
   - `average_queue_length` \(= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t\)
