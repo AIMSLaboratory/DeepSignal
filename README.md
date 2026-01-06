@@ -1,4 +1,4 @@
-# DeepSignal (SUMO + MCP) — Traffic Signal Control via LLM
+# DeepSignal — Traffic Signal Control via LLM
 
 [中文 README](README_zh.md)
 

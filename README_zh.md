@@ -1,4 +1,4 @@
-# DeepSignal（SUMO + MCP）——交通信号控制大模型
+# DeepSignal ——交通信号控制大模型
 
 [English README](README.md)
 
