@@ -87,18 +87,19 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
   - `max_saturation` $= \max_t \bar{X}_t$
   - `max_queue_length` $= \max_t \bar{q}_t$
 
-### Performance Metrics Comparison by Model
+### Performance Metrics Comparison by Model $^{*}$
 
-| Model | Avg Saturation | Avg Queue Length | Max Saturation | Max Queue Length | Avg Congestion Index |
-|---|---:|---:|---:|---:|---:|
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1550 | 5.5000 | 0.1550 | 5.4995 | 0.1500 |
-| **DeepSignal-4B (Ours)** | 0.1580 | 5.5500 | 0.1580 | 5.5498 | 0.1550 |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1720 | 6.1000 | 0.1720 | 6.1000 | 0.1950 |
-| SFT | 0.1780 | 6.2500 | 0.1780 | 6.2500 | 0.2050 |
-| Last Round GRPO | 0.1850 | 6.4500 | 0.1850 | 6.4500 | 0.2150 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1980 | 7.2000 | 0.1980 | 7.1989 | 0.2450 |
-| Max Pressure | 0.2050 | 7.8000 | 0.2049 | 7.7968 | 0.2550 |
-| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2250 | 8.5001 | 0.2250 | 8.4933 | 0.3050 |
+| Model | Avg Saturation$^{*}$ | Avg Queue Length | Max Saturation$^{*}$ | Max Queue Length | Avg Throughput (veh/min) | Response Success Rate (%) | Avg Response Time(s) |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.1993 | 2.1500 | 0.8101 | 21.0000 | 38.8758 | 99.33 | 6.768 |
+| **DeepSignal-4B (Ours)** | 0.1773 | 2.1167 | 0.6842 | 21.0000 | 32.9121 | 100.00 | 2.131 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1856 | 2.5500 | 0.7907 | 23.0000 | 31.9945 | 100.00 | 2.727 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1882 | 1.8167 | 0.7805 | 22.0000 | 30.2961 | 100.00 | 1.994 |
+| Max Pressure | 0.1859 | 1.8667 | 0.5714 | 25.0000 | 29.7832 | ** | ** |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.2425 | 2.1667 | 0.4706 | 20.0000 | 27.4091 | 7.17 | 3.025 |
+
+`*`: Each simulation scenario runs for 60 minutes, but metrics are computed using only the first 20 minutes of data. We observed that when an LLM controls signal timing for only a single intersection in the network, queues from neighboring intersections may spill back into the controlled intersection after ~20 minutes, causing the scenario to break and making the metrics unreliable.  
+`**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Response Success Rate and Avg Response Time; these two metrics are only defined for LLM-based signal-timing optimization.  
 
 
 ## Chengdu Real-world Deployment Comparison
