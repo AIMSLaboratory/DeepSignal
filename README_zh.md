@@ -67,20 +67,25 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 #### 指标计算方式（公式）
 
-令 $t$ 表示时间窗口内的仿真步, $l$ 表示某路口受控车道。实现中我们使用 `lane_length = 100m`、`avg_vehicle_length = 5m`。
+令 $t$ 表示时间窗口内的仿真步，$l$ 表示某路口受控车道。实现中我们使用 `avg_vehicle_length = 5m` 将车辆数换算为排队长度。
 
-- 单车道饱和度: $s_{t,l}=\frac{(n_{t,l}+h_{t,l})\cdot 5}{100}$ , 其中 $n_{t,l}$ 为第 $t$ 步车道 $l$ 上车辆数, $h_{t,l}$ 为停车（排队）车辆数。
+- 单车道/单进口道通行能力（饱和通行能力）：
+  - $c_l = s_l \cdot \dfrac{g_l}{C}$
+  - 其中 $s_l$ 为饱和流率（veh/h/ln，常取 1800–1900，或由现场标定），$g_l$ 为有效绿灯时间（s，需要扣除启动损失与清空损失），$C$ 为信号周期（s）。
+- 单车道饱和度（饱和度系数，$v/c$）：
+  - $X_{t,l}=\dfrac{v_{t,l}}{c_l}=\dfrac{v_{t,l}}{s_l\cdot (g_l/C)}$
+  - 其中 $v_{t,l}$ 为时间窗口内在车道 $l$ 上观测到的流率（veh/h/ln）。
 - 单车道排队长度（米）: $q_{t,l}=h_{t,l}\cdot 5$  
-- 对有效车道数 $L_t$ 求步均值: 
+- 对车道/车道组的饱和度与排队长度做加权平均（$\sum w_{t,l}=1$；$w_{t,l}$ 可按流量占比或重要性设置）：
   
 ```math
-\bar{s}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} s_{t,l}, \quad \bar{q}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} q_{t,l}
+\bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
 ```
 
 - 对时间窗口内 $T$ 个仿真步求窗口均值/最大值：
-  - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
+  - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
   - `average_queue_length` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
-  - `max_saturation` $=\max_t \bar{s}_t$
+  - `max_saturation` $=\max_t \bar{X}_t$
   - `max_queue_length` $=\max_t \bar{q}_t$
 
 ### 不同模型的指标对比表

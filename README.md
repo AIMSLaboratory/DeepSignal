@@ -68,18 +68,23 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 
 #### Metric computation (formulas)
 
-Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection. In our implementation we use `lane_length = 100m` and `avg_vehicle_length = 5m`.
+Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection. In our implementation we use `avg_vehicle_length = 5m` to convert vehicle counts to queue length (meters).
 
-- Per-lane saturation: $s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}$, where $n_{t,l}$ is the number of vehicles on lane $l$ at step $t$, and $h_{t,l}$ is the number of halting vehicles.
+- Per-lane/approach capacity (saturation capacity):
+  - $c_l = s_l \cdot \dfrac{g_l}{C}$
+  - where $s_l$ is the saturation flow rate (veh/h/ln, typically 1800–1900 or field-calibrated), $g_l$ is the effective green time (s; after subtracting start-up loss and clearance loss), and $C$ is the cycle length (s).
+- Per-lane saturation degree ($v/c$):
+  - $X_{t,l}=\dfrac{v_{t,l}}{c_l}=\dfrac{v_{t,l}}{s_l\cdot (g_l/C)}$
+  - where $v_{t,l}$ is the observed flow rate on lane $l$ in the time window (veh/h/ln).
 - Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
-- Step averages over valid lanes $L_t$:
+- Weighted averages over lanes/lane-groups ($\sum_l w_{t,l}=1$; weights can follow flow share or lane importance):
 ```math
-\bar{s}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} s_{t,l}, \quad \bar{q}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} q_{t,l}
+\bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
 ```
 - Window metrics over $T$ steps:
-  - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
+  - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
   - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
-  - `max_saturation` $= \max_t \bar{s}_t$
+  - `max_saturation` $= \max_t \bar{X}_t$
   - `max_queue_length` $= \max_t \bar{q}_t$
 
 ### Performance Metrics Comparison by Model
