@@ -53,10 +53,52 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | Eval (hold-out) | Not used in training |
 | Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (hold-out) | Not used in training |
 
+## Results from SUMO Simulation
+
+### Evaluation metrics
+
+We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics computed from the simulator:
+
+- **Avg Saturation** (`average_saturation`)
+- **Avg Queue Length** (`average_queue_length`)
+- **Max Saturation** (`max_saturation`)
+- **Max Queue Length** (`max_queue_length`)
+- **Congestion Index (0–1)** (`congestion_index`)
+- **Congestion Level** (`congestion_level`) and its distribution (%)
+
+#### Metric computation (formulas)
+
+Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection. In our implementation we use `lane_length = 100m` and `avg_vehicle_length = 5m`.
+
+- Per-lane saturation: $s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}$, where $n_{t,l}$ is the number of vehicles on lane $l$ at step $t$, and $h_{t,l}$ is the number of halting vehicles.
+- Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
+- Step averages over valid lanes $L_t$:
+```math
+\bar{s}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} s_{t,l}, \quad \bar{q}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} q_{t,l}
+```
+- Window metrics over $T$ steps:
+  - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
+  - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
+  - `max_saturation` $= \max_t \bar{s}_t$
+  - `max_queue_length` $= \max_t \bar{q}_t$
+
+### Performance Metrics Comparison by Model
+
+| Model | Avg Saturation | Avg Queue Length | Max Saturation | Max Queue Length | Avg Congestion Index |
+|---|---:|---:|---:|---:|---:|
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1550 | 5.5000 | 0.1550 | 5.4995 | 0.1500 |
+| **DeepSignal-4B (Ours)** | 0.1580 | 5.5500 | 0.1580 | 5.5498 | 0.1550 |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1720 | 6.1000 | 0.1720 | 6.1000 | 0.1950 |
+| SFT | 0.1780 | 6.2500 | 0.1780 | 6.2500 | 0.2050 |
+| Last Round GRPO | 0.1850 | 6.4500 | 0.1850 | 6.4500 | 0.2150 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1980 | 7.2000 | 0.1980 | 7.1989 | 0.2450 |
+| Max Pressure | 0.2050 | 7.8000 | 0.2049 | 7.7968 | 0.2550 |
+| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2250 | 8.5001 | 0.2250 | 8.4933 | 0.3050 |
+
 
 ## Chengdu Real-world Deployment Comparison
 
-This section reports a **real-world deployment** comparison between LLM-based signal control (Current) and a baseline strategy (Fixed signal timing plan, Yesterday) in the same intersection, on different days (2025-12-25 and 2025-12-24) during the same time period (14:10:05-17:17:00). The visualization digits come from identified data of the CCTV traffic camera footage.
+This section reports a **real-world deployment** comparison between LLM-based signal control (marked as `Current` in the figure) and a baseline strategy (Fixed signal timing plan optimized by local traffic management department, marked as `Yesterday` in the figure) in the same intersection, on different days (2025-12-25 and 2025-12-24) during the same time period (14:10:05-17:17:00). The visualization digits come from identified data of the CCTV traffic camera footage.
 
 ### Metric computation (real-world)
 
@@ -105,82 +147,6 @@ Congestion index time-series comparison:
 Cumulative congestion index comparison:
 ![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison.png)
 
-## Results from SUMO Simulation
-
-### Evaluation metrics
-
-We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics computed from the simulator:
-
-- **Avg Saturation** (`average_saturation`)
-- **Avg Queue Length** (`average_queue_length`)
-- **Max Saturation** (`max_saturation`)
-- **Max Queue Length** (`max_queue_length`)
-- **Congestion Index (0–1)** (`congestion_index`)
-- **Congestion Level** (`congestion_level`) and its distribution (%)
-
-#### Metric computation (formulas)
-
-Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection. In our implementation we use `lane_length = 100m` and `avg_vehicle_length = 5m`.
-
-- Per-lane saturation: $s_{t,l} = \dfrac{(n_{t,l} + h_{t,l})\cdot 5}{100}$, where $n_{t,l}$ is the number of vehicles on lane $l$ at step $t$, and $h_{t,l}$ is the number of halting vehicles.
-- Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
-- Step averages over valid lanes $L_t$:
-```math
-\bar{s}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} s_{t,l}, \quad \bar{q}_t=\frac{1}{L_t} \sum_{l=1}^{L_t} q_{t,l}
-```
-- Window metrics over $T$ steps:
-  - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{s}_t$
-  - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
-  - `max_saturation` $= \max_t \bar{s}_t$
-  - `max_queue_length` $= \max_t \bar{q}_t$
-- Congestion index (0–1):
-
-```math
-\mathrm{CI}=0.4\cdot \min\!\left(\mathrm{average\_saturation},1\right)
-+ 0.3\cdot \min\!\left(\dfrac{\mathrm{average\_queue\_length}}{L\cdot 50},1\right)
-+ 0.3\cdot \min\!\left(\dfrac{\mathrm{average\_delay}}{60},1\right)
-```
-
-Where $L$ is the number of valid lanes and average delay is the window-averaged per-lane waiting time (seconds).
-- Congestion level thresholds (from CI):
-  - Very smooth ($\mathrm{CI}<0.3$), Smooth ($0.3\le \mathrm{CI}<0.5$), Light congestion ($0.5\le \mathrm{CI}<0.7$), Moderate ($0.7\le \mathrm{CI}<0.9$), Severe ($\mathrm{CI}\ge 0.9$).
-
-### Performance Metrics Comparison by Model
-
-| Model | Avg Saturation | Avg Queue Length | Max Saturation | Max Queue Length | Avg Congestion Index |
-|---|---:|---:|---:|---:|---:|
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1550 | 5.5000 | 0.1550 | 5.4995 | 0.1500 |
-| DeepSignal-4B (Ours) | 0.1580 | 5.5500 | 0.1580 | 5.5498 | 0.1550 |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.1720 | 6.1000 | 0.1720 | 6.1000 | 0.1950 |
-| SFT | 0.1780 | 6.2500 | 0.1780 | 6.2500 | 0.2050 |
-| Last Round GRPO | 0.1850 | 6.4500 | 0.1850 | 6.4500 | 0.2150 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1980 | 7.2000 | 0.1980 | 7.1989 | 0.2450 |
-| Max Pressure | 0.2050 | 7.8000 | 0.2049 | 7.7968 | 0.2550 |
-| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.2250 | 8.5001 | 0.2250 | 8.4933 | 0.3050 |
-
-
-### Congestion Level Distribution by Model (%)
-
-| Model | Light congestion | Smooth | Very smooth |
-|---|---:|---:|---:|
-| DeepSignal-4B (Ours) | 0.00 | 12.00 | 88.00 |
-| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 2.00 | 53.33 | 44.67 |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.00 | 21.00 | 79.00 |
-| Max Pressure | 0.00 | 36.44 | 63.56 |
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.00 | 10.00 | 90.00 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 2.33 | 32.00 | 65.67 |
-| Qwen3-4B-SFT | 0.00 | 23.33 | 76.67 |
-
-### 
-Average saturation comparison:
-![Avg Saturation Comparison](images/avg_saturation_comparison.png)
-
-Average queue length comparison:
-![Avg Queue Length Comparison](images/avg_queue_length_comparison.png)
-
-Average congestion index comparison:
-
-![Avg Congestion Index Comparison](images/avg_congestion_index_comparison.png)
 
 ## Model files (GGUF) and local inference
 
