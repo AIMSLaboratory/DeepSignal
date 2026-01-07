@@ -62,8 +62,6 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 - **平均排队长度**（`average_queue_length`）
 - **最大饱和度**（`max_saturation`）
 - **最大排队长度**（`max_queue_length`）
-- **拥堵指数（0–1）**（`congestion_index`）
-- **拥堵等级**（`congestion_level`，并统计其分布百分比）
 
 #### 指标计算方式（公式）
 

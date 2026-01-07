@@ -63,8 +63,6 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 - **Avg Queue Length** (`average_queue_length`)
 - **Max Saturation** (`max_saturation`)
 - **Max Queue Length** (`max_queue_length`)
-- **Congestion Index (0–1)** (`congestion_index`)
-- **Congestion Level** (`congestion_level`) and its distribution (%)
 
 #### Metric computation (formulas)
 
