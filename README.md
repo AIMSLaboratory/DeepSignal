@@ -87,7 +87,7 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 
 ### Performance Metrics Comparison by Model $^{*}$
 
-| Model | Avg Saturation$^{*}$ | Avg Queue Length | Max Saturation$^{*}$ | Max Queue Length | Avg Throughput (veh/min) | Response Success Rate (%) | Avg Response Time(s) |
+| Model | Avg Saturation* | Avg Queue Length | Max Saturation* | Max Queue Length | Avg Throughput (veh/min) | Response Success Rate (%) | Avg Response Time(s) |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.1993 | 2.1500 | 0.8101 | 21.0000 | 38.8758 | 99.33 | 6.768 |
 | **DeepSignal-4B (Ours)** | 0.1773 | 2.1167 | 0.6842 | 21.0000 | 32.9121 | 100.00 | 2.131 |
