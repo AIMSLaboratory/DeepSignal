@@ -61,8 +61,8 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 
 - **Avg Saturation** (`average_saturation`)
 - **Avg Queue Length** (`average_queue_length`)
-- **Max Saturation** (`max_saturation`)
-- **Max Queue Length** (`max_queue_length`)
+- **Avg Throughput** (veh/min)
+- **Avg Response Time** (s; LLM-only)
 
 #### Metric computation (formulas)
 
@@ -82,22 +82,23 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 - Window metrics over $T$ steps:
   - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
   - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
-  - `max_saturation` $= \max_t \bar{X}_t$
-  - `max_queue_length` $= \max_t \bar{q}_t$
 
 ### Performance Metrics Comparison by Model $^{*}$
 
-| Model | Avg Saturation* | Avg Queue Length | Max Saturation* | Max Queue Length | Avg Throughput (veh/min) | Response Success Rate (%) | Avg Response Time(s) |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.1993 | 2.1500 | 0.8101 | 21.0000 | 38.8758 | 99.33 | 6.768 |
-| **DeepSignal-4B (Ours)** | 0.1773 | 2.1167 | 0.6842 | 21.0000 | 32.9121 | 100.00 | 2.131 |
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1856 | 2.5500 | 0.7907 | 23.0000 | 31.9945 | 100.00 | 2.727 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1882 | 1.8167 | 0.7805 | 22.0000 | 30.2961 | 100.00 | 1.994 |
-| Max Pressure | 0.1859 | 1.8667 | 0.5714 | 25.0000 | 29.7832 | ** | ** |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.2425 | 2.1667 | 0.4706 | 20.0000 | 27.4091 | 7.17 | 3.025 |
+| Model | Avg Saturation* | Avg Queue Length | Avg Throughput (veh/min) | Avg Response Time (s) |
+|:---:|:---:|:---:|:---:|:---:|
+| [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.1993 | 2.1500 | 38.8758 | 6.768 |
+| **DeepSignal-4B (Ours)** | 0.1773 | 2.1167 | 32.9121 | 2.131 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1856 | 2.5500 | 31.9945 | 2.727 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1882 | 1.8167 | 30.2961 | 1.994 |
+| Max Pressure | 0.1859 | 1.8667 | 29.7832 | ** |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.2425 | 2.1667 | 27.4091 | 3.025*** |
 
-`*`: Each simulation scenario runs for 60 minutes, but metrics are computed using only the first 20 minutes of data. We observed that when an LLM controls signal timing for only a single intersection in the network, queues from neighboring intersections may spill back into the controlled intersection after ~20 minutes, causing the scenario to break and making the metrics unreliable.  
-`**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Response Success Rate and Avg Response Time; these two metrics are only defined for LLM-based signal-timing optimization.  
+`*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario.  
+`**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Avg Response Time; this metric is only defined for LLM-based signal-timing optimization.  
+`***`: For LightGPT-8B-Llama3, Avg Response Time is computed using only the successful responses (its success rate is low, so this number is not directly comparable).
+
+**Conclusion**: Thinking-enabled models (e.g., GPT-OSS-20B) can achieve strong control performance, but typically incur higher response latency. Among **non-thinking** LLM baselines, **DeepSignal-4B** is the best-performing model in our evaluation.
 
 
 ## Chengdu Real-world Deployment Comparison
@@ -149,7 +150,7 @@ Congestion index time-series comparison:
 ![Congestion Index Time-series Comparison](images/congestion_index_timeseries_comparison.gif)
 
 Cumulative congestion index comparison:
-![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison.png)
+![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison_en.png)
 
 
 ## Model files (GGUF) and local inference

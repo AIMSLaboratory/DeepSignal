@@ -60,8 +60,8 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 - **平均饱和度**（`average_saturation`）
 - **平均排队长度**（`average_queue_length`）
-- **最大饱和度**（`max_saturation`）
-- **最大排队长度**（`max_queue_length`）
+- **平均车通量**（veh/min）
+- **平均响应时间**（s；仅大模型）
 
 #### 指标计算方式（公式）
 
@@ -80,25 +80,26 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 \bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
 ```
 
-- 对时间窗口内 $T$ 个仿真步求窗口均值/最大值：
+- 对时间窗口内 $T$ 个仿真步求窗口均值：
   - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
   - `average_queue_length` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
-  - `max_saturation` $=\max_t \bar{X}_t$
-  - `max_queue_length` $=\max_t \bar{q}_t$
 
 ### 不同模型的指标对比表 $^{*}$
 
-| 模型 | 平均饱和度* | 平均排队长度 | 最大饱和度* | 最大排队长度 | 平均车通量（veh/min） | 响应成功率（%） | 平均响应时间(s) |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| [`GPT-OSS-20B`](https://huggingface.co/openai/gpt-oss-20b) | 0.1993 | 2.1500 | 0.8101 | 21.0000 | 38.8758 | 99.33 | 6.768 |
-| **DeepSignal-4B (Ours)** | 0.1773 | 2.1167 | 0.6842 | 21.0000 | 32.9121 | 100.00 | 2.131 |
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1856 | 2.5500 | 0.7907 | 23.0000 | 31.9945 | 100.00 | 2.727 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1882 | 1.8167 | 0.7805 | 22.0000 | 30.2961 | 100.00 | 1.994 |
-| Max Pressure | 0.1859 | 1.8667 | 0.5714 | 25.0000 | 29.7832 | ** | ** |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.2425 | 2.1667 | 0.4706 | 20.0000 | 27.4091 | 7.17 | 3.025 |
+| 模型 | 平均饱和度* | 平均排队长度 | 平均车通量（veh/min） | 平均响应时间(s) |
+|:---:|:---:|:---:|:---:|:---:|
+| [`GPT-OSS-20B（thinking）`](https://huggingface.co/openai/gpt-oss-20b) | 0.1993 | 2.1500 | 38.8758 | 6.768 |
+| **DeepSignal-4B (Ours)** | 0.1773 | 2.1167 | 32.9121 | 2.131 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.1856 | 2.5500 | 31.9945 | 2.727 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.1882 | 1.8167 | 30.2961 | 1.994 |
+| Max Pressure | 0.1859 | 1.8667 | 29.7832 | ** |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.2425 | 2.1667 | 27.4091 | 3.025*** |
 
-`*`：我们用于评估的每一个仿真场景的时长是 60 min，但我们计算指标值使用了每一个仿真的前 20 分钟的统计数据。原因是我们发现在路网上用大模型只控制单个交叉口的信号配时的时候，周边交叉口的排队车辆会在 20 分钟以后溢出到当前被控制的交叉口，从而导致仿真场景崩溃，指标计算不准确。  
-`**`：Max Pressure 是一种信号配时优化的固定算法，并非大模型，因此指标统计中忽略其响应成功率和平均响应时间的计算，这两个指标都仅针对利用大模型进行信号配时优化的场景。  
+`*`：每个仿真场景总时长为 60 min。我们先去除前 **5 min** 的 warm-up（预热）阶段，然后使用紧随其后的 **20 min**（即第 5–25 分钟）数据计算指标。之所以将评估窗口限制在 20 min 内，是因为在路网上仅控制单个路口时，周边路口排队可能在约 20+ min 后回溢到被控路口，从而导致仿真不稳定、指标不可靠。  
+`**`：Max Pressure 是一种信号配时优化的固定算法，并非大模型，因此指标统计中忽略其平均响应时间的计算；该指标仅针对利用大模型进行信号配时优化的场景。  
+`***`：LightGPT-8B-Llama3 的平均响应时间仅在成功返回的样本上统计（其成功率较低，因此该数值不宜与其他模型直接横向对比）。
+
+**结论**：带 thinking 的模型（如 GPT-OSS-20B）在控制效果上往往更强，但通常会带来更长的响应时间；在 **Non-Thinking** 的大模型基线中，**DeepSignal-4B** 在我们的评估中表现最佳。
 
 
 
@@ -151,7 +152,7 @@ $$
 ![Congestion Index Time-series Comparison](images/congestion_index_timeseries_comparison.gif)
 
 累计拥堵指数对比：
-![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison.png)
+![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison_zh.png)
 
 
 
