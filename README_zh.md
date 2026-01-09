@@ -25,7 +25,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 ## 场景（训练 vs 未参与训练的评估）
 
-在线交互训练使用 `scenarios/` 目录下的多个城市/路网场景；评估时我们使用**未参与训练（hold-out）**的场景，在 SUMO 中做仿真评估以检验泛化能力。
+在线交互训练使用 `scenarios/` 目录下的多个城市/路网场景；评估时我们使用**未参与训练**的场景，在 SUMO 中做仿真评估以检验泛化能力。
 
 | 城市/区域 | 场景目录 | 配置文件 | 信号交叉口数量 | 用途 | 备注 |
 |---|---|---:|---:|---|---|
@@ -37,13 +37,13 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | 20 | 训练 | Brunswick OSM |
 | Arterial 4×4 | `arterial4x4` | `arterial4x4.sumocfg` | 16 | 训练 | 合成 |
 | Grid 4×4 | `grid4x4` | `grid4x4.sumocfg` | 16 | 训练 | 合成 |
-| Cologne | `cologne1` | `cologne1.sumocfg` | 1 | 评估（hold-out） | 未参与训练 |
-| Cologne | `cologne3` | `cologne3.sumocfg` | 3 | 评估（hold-out） | 未参与训练 |
-| Cologne | `cologne8` | `cologne8.sumocfg` | 8 | 评估（hold-out） | 未参与训练 |
-| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | 1 | 评估（hold-out） | 未参与训练 |
-| Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 24 | 评估（hold-out） | 未参与训练 |
-| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 7 | 评估（hold-out） | 未参与训练 |
-| Chengdu | `sumo_llm` | `osm.sumocfg` | 46 | 评估（hold-out） | 未参与训练 |
+| Cologne | `cologne1` | `cologne1.sumocfg` | 1 | 评估 | 未参与训练 |
+| Cologne | `cologne3` | `cologne3.sumocfg` | 3 | 评估 | 未参与训练 |
+| Cologne | `cologne8` | `cologne8.sumocfg` | 8 | 评估 | 未参与训练 |
+| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | 1 | 评估 | 未参与训练 |
+| Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 24 | 评估 | 未参与训练 |
+| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 7 | 评估 | 未参与训练 |
+| Chengdu | `sumo_llm` | `osm.sumocfg` | 46 | 评估 | 未参与训练 |
 
 ## SUMO仿真平台实验对比
 

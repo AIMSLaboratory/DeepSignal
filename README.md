@@ -26,7 +26,7 @@ We fine-tune DeepSignal using a two-stage learning pipeline:
 
 ## Scenarios (training vs hold-out evaluation)
 
-During online interaction, we use the SUMO scenarios under `scenarios/`. We also evaluate generalization on **hold-out scenarios** that are **NOT used in training**.
+During online interaction, we use the SUMO scenarios under `scenarios/`. We also evaluate generalization on hold-out scenarios that are **NOT used in training**.
 
 | City/Region | Scenario directory | Config | Signalized intersections | Usage | Notes |
 |---|---|---:|---:|---|---|
@@ -38,13 +38,13 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | 20 | Train | Brunswick OSM |
 | Arterial 4×4 | `arterial4x4` | `arterial4x4.sumocfg` | 16 | Train | Synthetic |
 | Grid 4×4 | `grid4x4` | `grid4x4.sumocfg` | 16 | Train | Synthetic |
-| Cologne | `cologne1` | `cologne1.sumocfg` | 1 | Eval (hold-out) | Not used in training |
-| Cologne | `cologne3` | `cologne3.sumocfg` | 3 | Eval (hold-out) | Not used in training |
-| Cologne | `cologne8` | `cologne8.sumocfg` | 8 | Eval (hold-out) | Not used in training |
-| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | 1 | Eval (hold-out) | Not used in training |
-| Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 24 | Eval (hold-out) | Not used in training |
-| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 7 | Eval (hold-out) | Not used in training |
-| Chengdu | `sumo_llm` | `osm.sumocfg` | 46 | Eval (hold-out) | Not used in training |
+| Cologne | `cologne1` | `cologne1.sumocfg` | 1 | Eval | Not used in training |
+| Cologne | `cologne3` | `cologne3.sumocfg` | 3 | Eval | Not used in training |
+| Cologne | `cologne8` | `cologne8.sumocfg` | 8 | Eval | Not used in training |
+| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | 1 | Eval | Not used in training |
+| Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 24 | Eval | Not used in training |
+| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 7 | Eval | Not used in training |
+| Chengdu | `sumo_llm` | `osm.sumocfg` | 46 | Eval | Not used in training |
 
 ## Results from SUMO Simulation
 
