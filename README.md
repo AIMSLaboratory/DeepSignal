@@ -52,7 +52,7 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 
 - **Avg Saturation** (`average_saturation`)
 - **Avg Queue Length** (`average_queue_length`)
-- **Avg Throughput** (veh/15min)
+- **Avg Throughput** (veh/5min)
 - **Avg Response Time** (s; LLM-only)
 
 #### Metric computation (formulas)
@@ -76,14 +76,14 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 
 ### Performance Metrics Comparison by Model $^{*}$
 
-| Model | Avg Saturation | Avg Queue Length (veh/s) | Avg Throughput (veh/15min) | Avg Response Time (s) |
+| Model | Avg Saturation | Avg Queue Length (veh/s) | Avg Throughput (veh/5min) | Avg Response Time (s) |
 |:---:|:---:|:---:|:---:|:---:|
-| [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.3801 | 0.476210 | 233.7302 | 6.768 |
-| **DeepSignal-4B (Ours)** | 0.4219 | 0.498338 | 239.6503 | 2.131 |
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.4314 | 0.580256 | 237.1774 | 2.727 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.4655 | 2.453933 | 227.1357 | 1.994 |
-| Max Pressure | 0.4647 | 0.639584 | 231.7069 | ** |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.5230 | 1.258782 | 226.5362 | 3.025*** |
+| [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.3801 | 0.476210 | 77.910075 | 6.768 |
+| **DeepSignal-4B (Ours)** | 0.4219 | 0.498338 | 79.883430 | 2.131 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.4314 | 0.580256 | 79.059117 | 2.727 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.4655 | 2.453933 | 75.711907 | 1.994 |
+| Max Pressure | 0.4647 | 0.639584 | 77.235637 | ** |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.5230 | 1.258782 | 75.512073 | 3.025*** |
 
 `*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario. All evaluations are conducted on a **Mac Studio M3 Ultra**.  
 `**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Avg Response Time; this metric is only defined for LLM-based signal-timing optimization.  
