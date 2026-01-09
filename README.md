@@ -30,21 +30,12 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 
 | City/Region | Scenario directory | Config | Usage | Notes |
 |---|---|---|---|---|
-| Bad Hersfeld | `BadHersfeld_osm_duarouter` | `duarouter.sumocfg` | Train | OSM + duarouter |
 | Bad Hersfeld | `BadHersfeld_osm_osm` | `osm.sumocfg` | Train | OSM |
-| Bad Hersfeld | `BadHersfeld_prt_src_prt` | `prt.sumocfg` | Train | PRT |
-| Bologna | `bologna_acosta_persontrips_run` | `run.sumocfg` | Train | Acosta (persontrips) |
 | Bologna | `bologna_acosta_run` | `run.sumocfg` | Train | Acosta |
 | Bologna | `bologna_joined_run` | `run.sumocfg` | Train | Joined |
 | Bologna | `bologna_pasubio_run` | `run.sumocfg` | Train | Pasubio |
 | Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | Train | Multi-mode |
-| Doerpfeldstr | `Doerpfeldstr_output` | `output.sumocfg` | Train | Output config |
-| Doerpfeldstr | `Doerpfeldstr_output_flows` | `output_flows.sumocfg` | Train | Flows |
-| Doerpfeldstr | `Doerpfeldstr_output_neu` | `output_neu.sumocfg` | Train | Output (neu) |
-| Germany motorways | `germany-motorways_run` | `run.sumocfg` | Train | Motorways |
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | Train | Brunswick OSM |
-| PORT tutorial | `port_tutorials_port_l_beck_port_tutorial` | `port_tutorial.sumocfg` | Train | Lübeck tutorial |
-| Wildau | `Wildau_flow1_Spaet` | `flow1_Spaet.sumocfg` | Train | Flow config |
 | Cologne | `cologne1` | `cologne1.sumocfg` | Eval (hold-out) | Not used in training |
 | Cologne | `cologne3` | `cologne3.sumocfg` | Eval (hold-out) | Not used in training |
 | Cologne | `cologne8` | `cologne8.sumocfg` | Eval (hold-out) | Not used in training |

@@ -29,21 +29,12 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 | 城市/区域 | 场景目录 | 配置文件 | 用途 | 备注 |
 |---|---|---|---|---|
-| Bad Hersfeld | `BadHersfeld_osm_duarouter` | `duarouter.sumocfg` | 训练 | OSM + duarouter |
 | Bad Hersfeld | `BadHersfeld_osm_osm` | `osm.sumocfg` | 训练 | OSM |
-| Bad Hersfeld | `BadHersfeld_prt_src_prt` | `prt.sumocfg` | 训练 | PRT |
-| Bologna | `bologna_acosta_persontrips_run` | `run.sumocfg` | 训练 | Acosta (persontrips) |
 | Bologna | `bologna_acosta_run` | `run.sumocfg` | 训练 | Acosta |
 | Bologna | `bologna_joined_run` | `run.sumocfg` | 训练 | Joined |
 | Bologna | `bologna_pasubio_run` | `run.sumocfg` | 训练 | Pasubio |
 | Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | 训练 | 多模式 |
-| Doerpfeldstr | `Doerpfeldstr_output` | `output.sumocfg` | 训练 | Output config |
-| Doerpfeldstr | `Doerpfeldstr_output_flows` | `output_flows.sumocfg` | 训练 | Flows |
-| Doerpfeldstr | `Doerpfeldstr_output_neu` | `output_neu.sumocfg` | 训练 | Output (neu) |
-| Germany motorways | `germany-motorways_run` | `run.sumocfg` | 训练 | 高速路网 |
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | 训练 | Brunswick OSM |
-| PORT tutorial | `port_tutorials_port_l_beck_port_tutorial` | `port_tutorial.sumocfg` | 训练 | Lübeck tutorial |
-| Wildau | `Wildau_flow1_Spaet` | `flow1_Spaet.sumocfg` | 训练 | 流量配置 |
 | Cologne | `cologne1` | `cologne1.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Cologne | `cologne3` | `cologne3.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Cologne | `cologne8` | `cologne8.sumocfg` | 评估（hold-out） | 未参与训练 |
