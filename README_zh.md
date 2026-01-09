@@ -35,12 +35,8 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | Bologna | `bologna_pasubio_run` | `run.sumocfg` | 训练 | Pasubio |
 | Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | 训练 | 多模式 |
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | 训练 | Brunswick OSM |
-| Cologne | `cologne1` | `cologne1.sumocfg` | 评估（hold-out） | 未参与训练 |
-| Cologne | `cologne3` | `cologne3.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Cologne | `cologne8` | `cologne8.sumocfg` | 评估（hold-out） | 未参与训练 |
-| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 评估（hold-out） | 未参与训练 |
-| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 评估（hold-out） | 未参与训练 |
 | Chengdu | `sumo_llm` | `osm.sumocfg` | 评估（hold-out） | 未参与训练 |
 
 ## SUMO仿真平台实验对比

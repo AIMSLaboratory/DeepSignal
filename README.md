@@ -36,12 +36,8 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Bologna | `bologna_pasubio_run` | `run.sumocfg` | Train | Pasubio |
 | Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | Train | Multi-mode |
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | Train | Brunswick OSM |
-| Cologne | `cologne1` | `cologne1.sumocfg` | Eval (hold-out) | Not used in training |
-| Cologne | `cologne3` | `cologne3.sumocfg` | Eval (hold-out) | Not used in training |
 | Cologne | `cologne8` | `cologne8.sumocfg` | Eval (hold-out) | Not used in training |
-| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | Eval (hold-out) | Not used in training |
 | Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | Eval (hold-out) | Not used in training |
-| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | Eval (hold-out) | Not used in training |
 | Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (hold-out) | Not used in training |
 
 ## Results from SUMO Simulation
