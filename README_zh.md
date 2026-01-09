@@ -83,7 +83,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | 模型 | 平均饱和度 | 平均累积排队长度 (veh⋅min) | 平均车通量（veh/5min） | 平均响应时间(s) |
 |:---:|:---:|:---:|:---:|:---:|
 | [`GPT-OSS-20B（thinking）`](https://huggingface.co/openai/gpt-oss-20b) | 0.380 | 14.088 | 77.910 | 6.768 |
-| **DeepSignal-4B (Ours)** | 0.422 | 15.703 | 79.883 | 2.131 |
+| **DeepSignal-4B (Ours)** | 0.422 | 15.703 | **79.883** | 2.131 |
 | [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.431 | 17.046 | 79.059 | 2.727 |
 | [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.466 | 57.699 | 75.712 | 1.994 |
 | Max Pressure | 0.465 | 23.022 | 77.236 | ** |
