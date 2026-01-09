@@ -90,7 +90,7 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 
 `*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario. All evaluations are conducted on a **Mac Studio M3 Ultra**.  
 `**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Avg Response Time; this metric is only defined for LLM-based signal-timing optimization.  
-`***`: For LightGPT-8B-Llama3, Avg Response Time is computed using only the successful responses.
+`***`: For LightGPT-8B-Llama3, Avg Response Time is computed using only the successful responses. Note that LightGPT-8B-Llama3 includes tool calls, and typically needs to be used together with the simulation platform and programs described in [LLMTSCS](https://github.com/usail-hkust/LLMTSCS?tab=readme-ov-file). In our simulation scenarios, the success rate of valid LLM responses is not high, which could lead to lower performance.
 
 **Conclusion**: Thinking-enabled models (e.g., GPT-OSS-20B) can achieve better control performance, but typically incur higher response latency. Among **non-thinking** LLM baselines, **DeepSignal-4B** is the best-performing model in our evaluation.
 
@@ -148,6 +148,7 @@ Cumulative congestion index comparison:
 
 Compared to the optimized fixed signal timing plan by the local traffic management department, our **DeepSignal** achieves a **21% reduction** in cumulative congestion index when deployed at real-world intersections.
 
+The real-world deployment of LLM-based signal timing also benefited from contributions by our research team members: Minyu Shen and Dapeng Zhang.
 
 ## Model files (GGUF) and local inference
 
