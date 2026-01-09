@@ -92,7 +92,7 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 **Conclusion**: Thinking-enabled models (e.g., GPT-OSS-20B) can achieve better control performance, but typically incur higher response latency. Among **non-thinking** LLM baselines, **DeepSignal-4B** is the best-performing model in our evaluation.
 
 
-## Chengdu Real-world Deployment Comparison
+## Real-world Deployment Comparison
 
 This section reports a **real-world deployment** comparison between LLM-based signal control (marked as `Current` in the figure) and a baseline strategy (Fixed signal timing plan optimized by local traffic management department, marked as `Yesterday` in the figure) in the same intersection, on different days (2025-12-25 and 2025-12-24) during the same time period (14:10:05-17:17:00). The visualization digits come from identified data of the CCTV traffic camera footage.
 
