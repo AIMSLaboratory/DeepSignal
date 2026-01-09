@@ -85,7 +85,7 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 | Max Pressure | 0.4647 | 0.639584 | 231.7069 | ** |
 | [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.5230 | 1.258782 | 226.5362 | 3.025*** |
 
-`*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario.  
+`*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario. All evaluations are conducted on a **Mac Studio M3 Ultra**.  
 `**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Avg Response Time; this metric is only defined for LLM-based signal-timing optimization.  
 `***`: For LightGPT-8B-Llama3, Avg Response Time is computed using only the successful responses.
 
@@ -142,6 +142,8 @@ Congestion index time-series comparison:
 
 Cumulative congestion index comparison:
 ![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison_en.png)
+
+Compared to the optimized fixed signal timing plan by the local traffic management department, our **DeepSignal** achieves a **21% reduction** in cumulative congestion index when deployed at real-world intersections.
 
 
 ## Model files (GGUF) and local inference
