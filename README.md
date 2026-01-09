@@ -47,13 +47,13 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics computed from the simulator:
 
 - **Avg Saturation** (`average_saturation`)
-- **Avg Queue Length** (`average_queue_length`)
+- **Avg Cumulative Queue Length** (`average_cumulative_queue_length`)
 - **Avg Throughput** (veh/5min)
 - **Avg Response Time** (s; LLM-only)
 
 #### Metric computation (formulas)
 
-Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection. In our implementation we use `avg_vehicle_length = 5m` to convert vehicle counts to queue length (meters).
+Let $t$ index simulation steps in a time window, and $l$ index controlled lanes at an intersection.
 
 - Per-lane/approach capacity (saturation capacity):
   - $c_l = s_l \cdot \dfrac{g_l}{C}$
@@ -61,18 +61,19 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 - Per-lane saturation degree ($v/c$):
   - $X_{t,l}=\dfrac{v_{t,l}}{c_l}=\dfrac{v_{t,l}}{s_l\cdot (g_l/C)}$
   - where $v_{t,l}$ is the observed flow rate on lane $l$ in the time window (veh/h/ln).
-- Per-lane queue length (meters): $q_{t,l} = h_{t,l}\cdot 5$
+- Per-lane queue length (vehicle count): $q_{t,l} = h_{t,l}$
+  - where $h_{t,l}$ is the number of vehicles queued on lane $l$ at time step $t$.
 - Weighted averages over lanes/lane-groups ($\sum_l w_{t,l}=1$; weights can follow flow share or lane importance):
 ```math
 \bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
 ```
-- Window metrics over $T$ steps:
+- Window metrics over $T$ steps (where each step represents 1 minute):
   - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
-  - `average_queue_length` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
+  - `average_cumulative_queue_length` $= \sum_{t=1}^{T}\bar{q}_t$ (unit: veh⋅min)
 
 ### Performance Metrics Comparison by Model $^{*}$
 
-| Model | Avg Saturation | Avg Queue Length (veh/min) | Avg Throughput (veh/5min) | Avg Response Time (s) |
+| Model | Avg Saturation | Avg Cumulative Queue Length (veh⋅min) | Avg Throughput (veh/5min) | Avg Response Time (s) |
 |:---:|:---:|:---:|:---:|:---:|
 | [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.380 | 14.088 | 77.910 | 6.768 |
 | **DeepSignal-4B (Ours)** | 0.422 | 15.703 | **79.883** | 2.131 |

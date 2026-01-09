@@ -46,13 +46,13 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 我们在 SUMO 仿真中对路口进行评估，核心指标包括：
 
 - **平均饱和度**（`average_saturation`）
-- **平均排队长度**（`average_queue_length`）
+- **平均累积排队长度**（`average_cumulative_queue_length`）
 - **平均车通量**（veh/5min）
 - **平均响应时间**（s；仅大模型）
 
 #### 指标计算方式（公式）
 
-令 $t$ 表示时间窗口内的仿真步，$l$ 表示某路口受控车道。实现中我们使用 `avg_vehicle_length = 5m` 将车辆数换算为排队长度。
+令 $t$ 表示时间窗口内的仿真步，$l$ 表示某路口受控车道。
 
 - 单车道/单进口道通行能力（饱和通行能力）：
   - $c_l = s_l \cdot \dfrac{g_l}{C}$
@@ -60,20 +60,21 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 - 单车道饱和度（饱和度系数， $v/c$ ）：
   - $X_{t,l}=\dfrac{v_{t,l}}{c_l}=\dfrac{v_{t,l}}{s_l\cdot (g_l/C)}$
   - 其中 $v_{t,l}$ 为时间窗口内在车道 $l$ 上观测到的流率（veh/h/ln）。
-- 单车道排队长度（米）: $q_{t,l}=h_{t,l}\cdot 5$  
+- 单车道排队长度（车辆数）: $q_{t,l}=h_{t,l}$
+  - 其中 $h_{t,l}$ 为在时间步 $t$ 时车道 $l$ 上排队的车辆数。
 - 对车道/车道组的饱和度与排队长度做加权平均（$\sum w_{t,l}=1$；$w_{t,l}$ 可按流量占比或重要性设置）：
   
 ```math
 \bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
 ```
 
-- 对时间窗口内 $T$ 个仿真步求窗口均值：
+- 对时间窗口内 $T$ 个仿真步进行聚合计算（每个步长表示 1 分钟）：
   - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
-  - `average_queue_length` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{q}_t$
+  - `average_cumulative_queue_length` $=\sum_{t=1}^{T}\bar{q}_t$（单位：veh⋅min）
 
 ### 不同模型的指标对比表 $^{*}$
 
-| 模型 | 平均饱和度 | 平均排队长度 (veh/min) | 平均车通量（veh/5min） | 平均响应时间(s) |
+| 模型 | 平均饱和度 | 平均累积排队长度 (veh⋅min) | 平均车通量（veh/5min） | 平均响应时间(s) |
 |:---:|:---:|:---:|:---:|:---:|
 | [`GPT-OSS-20B（thinking）`](https://huggingface.co/openai/gpt-oss-20b) | 0.380 | 14.088 | 77.910 | 6.768 |
 | **DeepSignal-4B (Ours)** | 0.422 | 15.703 | 79.883 | 2.131 |
