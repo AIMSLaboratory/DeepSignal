@@ -85,14 +85,14 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 
 ### Performance Metrics Comparison by Model $^{*}$
 
-| Model | Avg Saturation* | Avg Queue Length | Avg Throughput (veh/min) | Avg Response Time (s) |
+| Model | Avg Saturation | Avg Queue Length | Avg Throughput (veh/15min) | Avg Response Time (s) |
 |:---:|:---:|:---:|:---:|:---:|
-| [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.3801 | 7.4831 | 38.8758 | 6.768 |
-| **DeepSignal-4B (Ours)** | 0.4219 | 8.0091 | 32.9121 | 2.131 |
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.4314 | 8.3181 | 31.9945 | 2.727 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.4655 | 19.6995 | 30.2961 | 1.994 |
-| Max Pressure | 0.4647 | 10.4237 | 29.7832 | ** |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.5230 | 24.2946 | 27.4091 | 3.025*** |
+| [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.3801 | 7.4831 | 233.7302 | 6.768 |
+| **DeepSignal-4B (Ours)** | 0.4219 | 8.0091 | 239.6503 | 2.131 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.4314 | 8.3181 | 237.1774 | 2.727 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.4655 | 19.6995 | 227.1357 | 1.994 |
+| Max Pressure | 0.4647 | 10.4237 | 231.7069 | ** |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.5230 | 24.2946 | 226.5362 | 3.025*** |
 
 `*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario.  
 `**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Avg Response Time; this metric is only defined for LLM-based signal-timing optimization.  
