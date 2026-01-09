@@ -61,7 +61,7 @@ We evaluate DeepSignal in **SUMO simulation** using intersection-level metrics c
 
 - **Avg Saturation** (`average_saturation`)
 - **Avg Queue Length** (`average_queue_length`)
-- **Avg Throughput** (veh/min)
+- **Avg Throughput** (veh/15min)
 - **Avg Response Time** (s; LLM-only)
 
 #### Metric computation (formulas)

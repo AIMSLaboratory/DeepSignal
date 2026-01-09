@@ -60,7 +60,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 - **平均饱和度**（`average_saturation`）
 - **平均排队长度**（`average_queue_length`）
-- **平均车通量**（veh/min）
+- **平均车通量**（veh/15min）
 - **平均响应时间**（s；仅大模型）
 
 #### 指标计算方式（公式）
