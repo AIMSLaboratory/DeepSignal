@@ -77,14 +77,14 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 ### 不同模型的指标对比表 $^{*}$
 
-| 模型 | 平均饱和度 | 平均排队长度 (veh/s) | 平均车通量（veh/5min） | 平均响应时间(s) |
+| 模型 | 平均饱和度 | 平均排队长度 (veh/min) | 平均车通量（veh/5min） | 平均响应时间(s) |
 |:---:|:---:|:---:|:---:|:---:|
-| [`GPT-OSS-20B（thinking）`](https://huggingface.co/openai/gpt-oss-20b) | 0.380 | 0.476 | 77.910 | 6.768 |
-| **DeepSignal-4B (Ours)** | 0.422 | 0.498 | 79.883 | 2.131 |
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.431 | 0.580 | 79.059 | 2.727 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.466 | 2.454 | 75.712 | 1.994 |
-| Max Pressure | 0.465 | 0.640 | 77.236 | ** |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.523 | 1.259 | 75.512 | 3.025*** |
+| [`GPT-OSS-20B（thinking）`](https://huggingface.co/openai/gpt-oss-20b) | 0.380 | 14.088 | 77.910 | 6.768 |
+| **DeepSignal-4B (Ours)** | 0.422 | 15.703 | 79.883 | 2.131 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.431 | 17.046 | 79.059 | 2.727 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.466 | 57.699 | 75.712 | 1.994 |
+| Max Pressure | 0.465 | 23.022 | 77.236 | ** |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.523 | 54.384 | 75.512 | 3.025*** |
 
 `*`：每个仿真场景总时长为 60 min。我们先去除前 **5 min** 的 warm-up（预热）阶段，然后使用紧随其后的 **20 min**（即第 5–25 分钟）数据计算指标。之所以将评估窗口限制在 20 min 内，是因为在路网上仅控制单个路口时，周边路口排队可能在约 20+ min 后回溢到被控路口，从而导致仿真不稳定、指标不可靠。所有评估均在 **Mac Studio M3 Ultra** 上进行。  
 `**`：Max Pressure 是一种信号配时优化的固定算法，并非大模型，因此指标统计中忽略其平均响应时间的计算；该指标仅针对利用大模型进行信号配时优化的场景。  

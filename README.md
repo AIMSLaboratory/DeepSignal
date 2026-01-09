@@ -76,14 +76,14 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 
 ### Performance Metrics Comparison by Model $^{*}$
 
-| Model | Avg Saturation | Avg Queue Length (veh/s) | Avg Throughput (veh/5min) | Avg Response Time (s) |
+| Model | Avg Saturation | Avg Queue Length (veh/min) | Avg Throughput (veh/5min) | Avg Response Time (s) |
 |:---:|:---:|:---:|:---:|:---:|
-| [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.380 | 0.476 | 77.910 | 6.768 |
-| **DeepSignal-4B (Ours)** | 0.422 | 0.498 | **79.883** | 2.131 |
-| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.431 | 0.580 | 79.059 | 2.727 |
-| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.466 | 2.454 | 75.712 | 1.994 |
-| Max Pressure | 0.465 | 0.640 | 77.236 | ** |
-| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.523 | 1.259 | 75.512 | 3.025*** |
+| [`GPT-OSS-20B (thinking)`](https://huggingface.co/openai/gpt-oss-20b) | 0.380 | 14.088 | 77.910 | 6.768 |
+| **DeepSignal-4B (Ours)** | 0.422 | 15.703 | **79.883** | 2.131 |
+| [`Qwen3-30B-A3B`](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | 0.431 | 17.046 | 79.059 | 2.727 |
+| [`Qwen3-4B`](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) | 0.466 | 57.699 | 75.712 | 1.994 |
+| Max Pressure | 0.465 | 23.022 | 77.236 | ** |
+| [`LightGPT-8B-Llama3`](https://huggingface.co/lightgpt/LightGPT-8B-Llama3) | 0.523 | 54.384 | 75.512 | 3.025*** |
 
 `*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario. All evaluations are conducted on a **Mac Studio M3 Ultra**.  
 `**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Avg Response Time; this metric is only defined for LLM-based signal-timing optimization.  
