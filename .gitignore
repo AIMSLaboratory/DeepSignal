@@ -15,3 +15,4 @@ scripts/
 .cache/
 *.jsonl
 traffic_control_comparison.ipynb
+scenarios/

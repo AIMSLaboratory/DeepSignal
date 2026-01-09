@@ -28,17 +28,23 @@ We fine-tune DeepSignal using a two-stage learning pipeline:
 
 During online interaction, we use the SUMO scenarios under `scenarios/`. We also evaluate generalization on **hold-out scenarios** that are **NOT used in training**.
 
-| City/Region | Scenario directory | Config | Usage | Notes |
-|---|---|---|---|---|
-| Bad Hersfeld | `BadHersfeld_osm_osm` | `osm.sumocfg` | Train | OSM |
-| Bologna | `bologna_acosta_run` | `run.sumocfg` | Train | Acosta |
-| Bologna | `bologna_joined_run` | `run.sumocfg` | Train | Joined |
-| Bologna | `bologna_pasubio_run` | `run.sumocfg` | Train | Pasubio |
-| Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | Train | Multi-mode |
-| PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | Train | Brunswick OSM |
-| Cologne | `cologne8` | `cologne8.sumocfg` | Eval (hold-out) | Not used in training |
-| Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | Eval (hold-out) | Not used in training |
-| Chengdu | `sumo_llm` | `osm.sumocfg` | Eval (hold-out) | Not used in training |
+| City/Region | Scenario directory | Config | Signalized intersections | Usage | Notes |
+|---|---|---:|---:|---|---|
+| Bad Hersfeld | `BadHersfeld_osm_osm` | `osm.sumocfg` | 24 | Train | OSM |
+| Bologna | `bologna_acosta_run` | `run.sumocfg` | 16 | Train | Acosta |
+| Bologna | `bologna_joined_run` | `run.sumocfg` | 29 | Train | Joined |
+| Bologna | `bologna_pasubio_run` | `run.sumocfg` | 15 | Train | Pasubio |
+| Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | 10 | Train | Multi-mode |
+| PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | 20 | Train | Brunswick OSM |
+| Arterial 4×4 | `arterial4x4` | `arterial4x4.sumocfg` | 16 | Train | Synthetic |
+| Grid 4×4 | `grid4x4` | `grid4x4.sumocfg` | 16 | Train | Synthetic |
+| Cologne | `cologne1` | `cologne1.sumocfg` | 1 | Eval (hold-out) | Not used in training |
+| Cologne | `cologne3` | `cologne3.sumocfg` | 3 | Eval (hold-out) | Not used in training |
+| Cologne | `cologne8` | `cologne8.sumocfg` | 8 | Eval (hold-out) | Not used in training |
+| Ingolstadt | `ingolstadt1` | `ingolstadt1.sumocfg` | 1 | Eval (hold-out) | Not used in training |
+| Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 24 | Eval (hold-out) | Not used in training |
+| Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 7 | Eval (hold-out) | Not used in training |
+| Chengdu | `sumo_llm` | `osm.sumocfg` | 46 | Eval (hold-out) | Not used in training |
 
 ## Results from SUMO Simulation
 
@@ -213,11 +219,6 @@ uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_mo
   - `images/avg_saturation_comparison.png`
   - `images/avg_queue_length_comparison.png`
   - `images/avg_congestion_index_comparison.png`
-
-## UI
-
-<img src="images/SUMO仿真界面.png" alt="SUMO" width="50%" height="50%">
-
 
 ## Citation
 
