@@ -34,7 +34,7 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Bologna | `bologna_acosta_run` | `run.sumocfg` | 16 | Train | Acosta |
 | Bologna | `bologna_joined_run` | `run.sumocfg` | 29 | Train | Joined |
 | Bologna | `bologna_pasubio_run` | `run.sumocfg` | 15 | Train | Pasubio |
-| Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | 10 | Train | Multi-mode |
+| Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | 10 | Train | Doerpfeldstr |
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | 20 | Train | Brunswick OSM |
 | Arterial 4×4 | `arterial4x4` | `arterial4x4.sumocfg` | 16 | Train | Synthetic |
 | Grid 4×4 | `grid4x4` | `grid4x4.sumocfg` | 16 | Train | Synthetic |

@@ -33,7 +33,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | Bologna | `bologna_acosta_run` | `run.sumocfg` | 16 | 训练 | Acosta |
 | Bologna | `bologna_joined_run` | `run.sumocfg` | 29 | 训练 | Joined |
 | Bologna | `bologna_pasubio_run` | `run.sumocfg` | 15 | 训练 | Pasubio |
-| Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | 10 | 训练 | 多模式 |
+| Doerpfeldstr | `Doerpfeldstr_all_modes` | `all_modes.sumocfg` | 10 | 训练 | Doerpfeldstr |
 | PORT tutorial | `port_tutorials_port_brunswick_osm` | `osm.sumocfg` | 20 | 训练 | Brunswick OSM |
 | Arterial 4×4 | `arterial4x4` | `arterial4x4.sumocfg` | 16 | 训练 | 合成 |
 | Grid 4×4 | `grid4x4` | `grid4x4.sumocfg` | 16 | 训练 | 合成 |
