@@ -61,9 +61,9 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 - Per-lane saturation degree ($v/c$):
   - $X_{t,l}=\dfrac{v_{t,l}}{c_l}=\dfrac{v_{t,l}}{s_l\cdot (g_l/C)}$
   - where $v_{t,l}$ is the observed flow rate on lane $l$ in the time window (veh/h/ln).
-- Per-lane queue length (vehicle count): $q_{t,l} = h_{t,l}$
-  - where $h_{t,l}$ is the number of vehicles queued on lane $l$ at time step $t$.
-- Weighted averages over lanes/lane-groups ($\sum_l w_{t,l}=1$; weights can follow flow share or lane importance):
+- Per-lane queue length (vehicle count): $q_{t,l}$
+  - where $q_{t,l}$ is the number of vehicles queued on lane $l$ at time step $t$.
+- Weighted averages over lanes/lane-groups ( $\sum_l w_{t,l}=1$ ; weights can follow flow share or lane importance):
 ```math
 \bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
 ```
