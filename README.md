@@ -96,9 +96,9 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 
 `*`: Each simulation scenario runs for 60 minutes. We discard the first **5 minutes** as warm-up, then compute metrics over the next **20 minutes** (minute 5 to 25). We cap the evaluation window because, when an LLM controls signal timing for only a single intersection, spillback from neighboring intersections may occur after ~20+ minutes and destabilize the scenario.  
 `**`: Max Pressure is a fixed signal-timing optimization algorithm (not an LLM), so we omit its Avg Response Time; this metric is only defined for LLM-based signal-timing optimization.  
-`***`: For LightGPT-8B-Llama3, Avg Response Time is computed using only the successful responses (its success rate is low, so this number is not directly comparable).
+`***`: For LightGPT-8B-Llama3, Avg Response Time is computed using only the successful responses.
 
-**Conclusion**: Thinking-enabled models (e.g., GPT-OSS-20B) can achieve strong control performance, but typically incur higher response latency. Among **non-thinking** LLM baselines, **DeepSignal-4B** is the best-performing model in our evaluation.
+**Conclusion**: Thinking-enabled models (e.g., GPT-OSS-20B) can achieve better control performance, but typically incur higher response latency. Among **non-thinking** LLM baselines, **DeepSignal-4B** is the best-performing model in our evaluation.
 
 
 ## Chengdu Real-world Deployment Comparison
