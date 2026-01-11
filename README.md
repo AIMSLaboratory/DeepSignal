@@ -157,7 +157,7 @@ The lower left corner shows the signal timing cycle scheme optimized by DeepSign
 
 Due to regulatory requirements, the real-time traffic camera footage (in the middle of the UI) has been protected.
 
-Full video demonstration can be found on [Bilibili](https://www.bilibili.com/video/BV1ej69BkEG2/).
+Full video demonstration can be found on [Youtube](https://www.youtube.com/watch?v=uqVP5vIIrzE).
 
 ## Model files (GGUF) and local inference
 
