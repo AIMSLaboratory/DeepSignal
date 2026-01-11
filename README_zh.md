@@ -157,7 +157,9 @@ $$
 ![TSC_real_world_zh.gif](images/TSC_real_world_zh.gif)
 左下角为DeepSignal根据实时交通状态和历史交通数据，优化的信号配时周期方案，包括每个相位的绿灯时长。
 
-应监管要求，交叉口摄像头实时采集画面(在UI界面中部)已做保护处理。
+应监管要求，交叉口摄像头实时采集画面(在UI界面中间)已做保护处理。
+
+完整视频展示请跳转至[Bilibili](https://www.bilibili.com/video/BV1ej69BkEG2/)。
 
 ## 模型文件（GGUF）与本地推理
 

@@ -157,6 +157,8 @@ The lower left corner shows the signal timing cycle scheme optimized by DeepSign
 
 Due to regulatory requirements, the real-time traffic camera footage (in the middle of the UI) has been protected.
 
+Full video demonstration can be found on [Bilibili](https://www.bilibili.com/video/BV1ej69BkEG2/).
+
 ## Model files (GGUF) and local inference
 
 If you are looking for GGUF files for local inference (`llama.cpp` / LM Studio), check the model card in Hugging Face and the packaging notes under `hf/`.
