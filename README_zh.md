@@ -11,7 +11,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 ## 团队信息
 
 - **团队名称**：AIMSLab
-- **团队成员**：Feng Xiao, Da Lei, Yuzhan Liu, Jinyou Chi, Yabang, Wang.
+- **团队成员**：Feng Xiao, Da Lei, Yuzhan Liu, Jinyou Chi, Yabang Wang, Minyu Shen (only involved in real-world deployment), Dapeng Zhang (only involved in real-world deployment).
 - **团队负责人（leader）**：Feng Xiao（个人主页：<https://bs.scu.edu.cn/guanlikexue/202403/9185.html>）
 - **联系邮箱**：<trains.ai.lab@gmail.com>
 
@@ -149,8 +149,6 @@ $$
 ![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison_zh.png)
 
 相较于交通部门优化后的固定配时信号控制，我们的 **DeepSignal** 用于真实交叉口信号控制时，累积拥堵指数**下降了21%**。
-
-基于大模型（LLM）的信号配时在实际部署过程中，也得益于我们研究团队成员Minyu Shen和Dapeng Zhang的贡献。
 
 ## 某真实交叉口基于大模型信号配时优化UI界面展示
 

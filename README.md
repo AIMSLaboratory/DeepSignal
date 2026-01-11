@@ -12,7 +12,7 @@ This repository also contains a SUMO-based simulation stack and an MCP server to
 ## Team
 
 - **Team name**: AIMSLab
-- **Team members**: Feng Xiao, Da Lei, Yuzhan Liu, Jinyou Chi, Yabang, Wang.
+- **Team members**: Feng Xiao, Da Lei, Yuzhan Liu, Jinyou Chi, Yabang Wang, Minyu Shen (only involved in real-world deployment), Dapeng Zhang (only involved in real-world deployment).
 - **Team leader**: Feng Xiao (homepage: <https://bs.scu.edu.cn/guanlikexue/202403/9185.html>)
 - **Contact**: <trains.ai.lab@gmail.com>
 
@@ -147,8 +147,6 @@ Cumulative congestion index comparison:
 ![Cumulative Congestion Index Comparison](images/congestion_index_cumulative_comparison_en.png)
 
 Compared to the optimized fixed signal timing plan by the local traffic management department, our **DeepSignal** achieves a **21% reduction** in cumulative congestion index when deployed at real-world intersections.
-
-The real-world deployment of LLM-based signal timing also benefited from contributions by our research team members: Minyu Shen and Dapeng Zhang.
 
 ## Real-world Deployment UI
 
