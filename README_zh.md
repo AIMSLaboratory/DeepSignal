@@ -72,9 +72,9 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
   - $q_{t,l}$ 为在时间步 $t$ 时车道 $l$ 上排队的车辆数。
 - 对车道/车道组的饱和度与排队长度做加权平均（ $\sum w_{t,l}=1$ ； $w_{t,l}$  可按流量占比或重要性设置）：
   
-```math
+$$
 \bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
-```
+$$
 
 - 对时间窗口内 $T$ 个仿真步进行聚合计算（每个步长表示 1 分钟）：
   - `average_saturation` $=\dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
