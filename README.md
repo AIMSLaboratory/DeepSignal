@@ -150,6 +150,13 @@ Compared to the optimized fixed signal timing plan by the local traffic manageme
 
 The real-world deployment of LLM-based signal timing also benefited from contributions by our research team members: Minyu Shen and Dapeng Zhang.
 
+## Real-world Deployment UI
+
+![TSC_real_world_en.gif](images/TSC_real_world_zh.gif)
+The lower left corner shows the signal timing cycle scheme optimized by DeepSignal based on real-time traffic status and historical traffic data, including the green time of each phase.
+
+Due to regulatory requirements, the real-time traffic camera footage (in the middle of the UI) has been protected.
+
 ## Model files (GGUF) and local inference
 
 If you are looking for GGUF files for local inference (`llama.cpp` / LM Studio), check the model card in Hugging Face and the packaging notes under `hf/`.
