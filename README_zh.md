@@ -27,7 +27,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 
 在线交互训练使用 `scenarios/` 目录下的多个城市/路网场景；评估时我们使用**未参与训练**的场景，在 SUMO 中做仿真评估以检验泛化能力。
 
-| 城市/区域 | 场景目录 | 配置文件 | 信号交叉口数量 | 用途 | 备注 |
+| 城市/区域 | 案例目录 | 配置文件 | 信号交叉口数量* | 用途 | 备注 |
 |---|---|---:|---:|---|---|
 | Bad Hersfeld | `BadHersfeld_osm_osm` | `osm.sumocfg` | 24 | 训练 | OSM |
 | Bologna | `bologna_acosta_run` | `run.sumocfg` | 16 | 训练 | Acosta |
@@ -44,6 +44,8 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 | Ingolstadt | `ingolstadt21` | `ingolstadt21.sumocfg` | 24 | 评估 | 未参与训练 |
 | Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 7 | 评估 | 未参与训练 |
 | Chengdu | `sumo_llm` | `osm.sumocfg` | 46 | 评估 | 未参与训练 |
+
+`*`：不同交叉口与不同交通流量情况一共组成了22561个训练场景及2000个评估场景。在Nvidia DGX Spark GPU上，训练DeepSignal-4B-V1模型一个Epoch约需336小时，评估则需约5小时。
 
 ## SUMO仿真平台实验对比
 

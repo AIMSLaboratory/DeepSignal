@@ -46,6 +46,8 @@ During online interaction, we use the SUMO scenarios under `scenarios/`. We also
 | Ingolstadt | `ingolstadt7` | `ingolstadt7.sumocfg` | 7 | Eval | Not used in training |
 | Chengdu | `sumo_llm` | `osm.sumocfg` | 46 | Eval | Not used in training |
 
+`*`：Different intersections and different traffic flow conditions together form 22,561 training scenarios and 2,000 evaluation scenarios. On Nvidia DGX Spark GPU, training DeepSignal-4B-V1 model for one Epoch takes about 336 hours, and evaluation takes about 5 hours.
+
 ## Results from SUMO Simulation
 
 ### Evaluation metrics
