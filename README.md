@@ -12,7 +12,7 @@ This repository also contains a SUMO-based simulation stack and an MCP server to
 ## Team
 
 - **Team name**: AIMSLab
-- **Team members**: Feng Xiao, Da Lei, Yuzhan Liu, Jinyou Chi, Yabang Wang, Minyu Shen (only involved in real-world deployment), Dapeng Zhang (only involved in real-world deployment).
+- **Team members**: Feng Xiao, Da Lei, Lu Li, Yuzhan Liu, Jinyou Chi, Yabang Wang. (Thanks Minyu Shen and Dapeng Zhang, for their contribution in the real-world deployment of LLM-based traffic signal control) 
 - **Team leader**: Feng Xiao (homepage: <https://bs.scu.edu.cn/guanlikexue/202403/9185.html>)
 - **Contact**: <trains.ai.lab@gmail.com>
 
@@ -28,7 +28,7 @@ We fine-tune DeepSignal using a two-stage learning pipeline:
 
 During online interaction, we use the SUMO scenarios under `scenarios/`. We also evaluate generalization on hold-out scenarios that are **NOT used in training**.
 
-| City/Region | Scenario directory | Config | Signalized intersections | Usage | Notes |
+| City/Region | Case directory | Config | Signalized intersections | Usage | Notes |
 |---|---|---:|---:|---|---|
 | Bad Hersfeld | `BadHersfeld_osm_osm` | `osm.sumocfg` | 24 | Train | OSM |
 | Bologna | `bologna_acosta_run` | `run.sumocfg` | 16 | Train | Acosta |

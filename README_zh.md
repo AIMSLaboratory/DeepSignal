@@ -11,7 +11,7 @@ DeepSignal 是我们自主微调的交通信号控制大模型，当前发布版
 ## 团队信息
 
 - **团队名称**：AIMSLab
-- **团队成员**：Feng Xiao, Da Lei, Yuzhan Liu, Jinyou Chi, Yabang Wang, Minyu Shen (only involved in real-world deployment), Dapeng Zhang (only involved in real-world deployment).
+- **团队成员**：Feng Xiao, Da Lei, Lu Li, Yuzhan Liu, Jinyou Chi, Yabang Wang. (感谢Minyu Shen和Dapeng Zhang在本项目真实场景部署中的贡献) 
 - **团队负责人（leader）**：Feng Xiao（个人主页：<https://bs.scu.edu.cn/guanlikexue/202403/9185.html>）
 - **联系邮箱**：<trains.ai.lab@gmail.com>
 
