@@ -153,7 +153,7 @@ The real-world deployment of LLM-based signal timing also benefited from contrib
 ## Real-world Deployment UI
 
 ![TSC_real_world_en.gif](images/TSC_real_world_zh.gif)
-The lower left corner shows the signal timing cycle scheme optimized by DeepSignal based on real-time traffic status and historical traffic data, including the green time of each phase.
+The lower left corner shows the signal timing cycle scheme optimized by DeepSignal based on real-time traffic status and historical traffic data.
 
 Due to regulatory requirements, the real-time traffic camera footage (in the middle of the UI) has been masked.
 
