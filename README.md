@@ -72,9 +72,11 @@ Let $t$ index simulation steps in a time window, and $l$ index controlled lanes 
 - Per-lane queue length (vehicle count): $q_{t,l}$
   - where $q_{t,l}$ is the number of vehicles queued on lane $l$ at time step $t$.
 - Weighted averages over lanes/lane-groups ( $\sum_l w_{t,l}=1$ ; weights can follow flow share or lane importance):
+
 $$
 \bar{X}_t=\sum_l w_{t,l} X_{t,l}, \quad \bar{q}_t=\sum_l w_{t,l} q_{t,l}
 $$
+
 - Window metrics over $T$ steps (where each step represents 1 minute):
   - `average_saturation` $= \dfrac{1}{T}\sum_{t=1}^{T}\bar{X}_t$
   - `average_cumulative_queue_length` $= \sum_{t=1}^{T}\bar{q}_t$ (unit: veh⋅min)
