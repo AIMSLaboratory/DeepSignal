@@ -245,3 +245,8 @@ uv run python api_server/mcp_server/mcp_server.py --scenario Doerpfeldstr_all_mo
   url     = {https://github.com/AIMSLaboratory/DeepSignal}
 }
 ```
+
+## 许可
+
+本项目采用 Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) 许可协议。
+严格禁止任何商业用途。

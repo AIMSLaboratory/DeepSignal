@@ -244,3 +244,8 @@ If you use this project in your research, please cite:
   url     = {https://github.com/AIMSLaboratory/DeepSignal}
 }
 ```
+
+## License
+
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+Commercial use is strictly prohibited.
